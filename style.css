@@ -10,8 +10,16 @@ textarea {
     resize: vertical;
 }
 
-#photoPreview {
+.xs-full-width {
+    margin-left: -15px;
+    margin-right: -15px;
+}
 
+@media (min-width: 768px) {
+    .xs-full-width {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 /* navbar overrides for small screens*/
