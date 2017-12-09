@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <link href="style.css" rel="stylesheet">
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="container" id="page">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">Charger map</a>
+            </div>
+            <div class="navbar-form navbar-right">
+                <a class="btn btn-default" href="index.html"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+                <a class="btn btn-default" disabled>Register</a>
+                <a class="btn btn-primary" disabled>Log in</a>
+            </div>
+        </div>
+    </nav>
+
+    <h1>Add station</h1>
+
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Name</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="stationName" placeholder="Powerpark">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Location</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="stationLoc" placeholder="Uluru">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Latitude</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="stationLat" placeholder="-25.363">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Longitude</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="stationLon" placeholder="131.044">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Description</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <textarea class="form-control" name="stationDesc" rows="5" placeholder="The best charging station in 100 miles!"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-12 control-label">Opening hours:</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Monday</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="openMon" placeholder="8:00 - 22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Tuesday</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="openTue" placeholder="8:00 - 22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Wednesday</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="openWed" placeholder="8:00 - 22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Thursday</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="openThu" placeholder="8:00 - 22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Friday</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="openFri" placeholder="8:00 - 22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Saturday</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="openSat" placeholder="8:00 - 22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Sunday</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input class="form-control" name="openSun" placeholder="8:00 - 22:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-12 control-label">Chargers:</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Type 1</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input type="number" class="form-control" name="charger1count" placeholder="2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Type 2</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input type="number" class="form-control" name="charger2count" placeholder="2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Commando</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <input type="number" class="form-control" name="charger3count" placeholder="1">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label">Photos</label>
+                    <div class="col-sm-8 col-xs-10">
+                        <div class="input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-default">
+                                    Browse&hellip; <input type="file" name="photos" style="display: none;" multiple>
+                                </span>
+                            </label>
+                            <input class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-2 control-label"></label>
+                    <div class="col-sm-8 col-xs-10">
+                        <div class="well well-sm photo-preview">
+                            <img src="placeholder.jpg" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-success pull-right">Create station</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <footer>
+        Footer<br>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elementum sapien at elementum semper. Nulla in dignissim magna. Duis velit eros, pretium eget mi id, tristique tincidunt arcu. Vestibulum placerat, libero eu pulvinar ultricies, ligula diam placerat mauris, cursus imperdiet mi risus ut mi. Donec in condimentum arcu. Morbi turpis ipsum, vestibulum id ex ac, accumsan vehicula magna. Sed tincidunt placerat risus, ut pellentesque neque tincidunt in. Etiam accumsan tempor laoreet. Aenean erat odio, iaculis id pulvinar sed, dapibus eu arcu. Nunc quis lobortis nibh. Nam malesuada faucibus fermentum. Quisque elementum dapibus nulla, vitae rhoncus elit molestie a. Phasellus ultricies viverra felis, eget viverra augue.
+    </footer>
+</div>
+
+<script src="jQuery/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="editStation.js" type="text/javascript"></script>
+</body>
+</html>
