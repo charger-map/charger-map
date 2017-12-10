@@ -6,6 +6,8 @@ if (!query.id) {
 
 var stationsRef = firebase.database().ref('stations/');
 
+var timeFields = [];
+
 stationsRef.child(query.id).on('value', function(snapshot) {
     var data = snapshot.val();
     if (!data) {
@@ -28,13 +30,13 @@ stationsRef.child(query.id).on('value', function(snapshot) {
             table.appendChild(getChargerRowNode(charger, id));
         });
 
+        timeFields = document.getElementsByName('chargeTime');
+
         doneLoading();
     }
 });
 
 var chargerRef = stationsRef.child(query.id).child('chargerData');
-
-// chargerRef.on('child_changed')
 
 var setChargerStatus = function(status, id) {
     var newState = {
@@ -48,10 +50,10 @@ var getChargerRowNode = function(charger, id) {
     var tr = document.createElement('tr');
 
     tr.innerHTML = '<tr>\n' +
-        '    <td>' + getChargerName(charger.type) + '</td>\n' +
-        '    <td>' + getChargerStatus(charger.status) + '</td>\n' +
-        '    <td>' + getChargerTime(charger.status, charger.time) + '</td>\n' +
-        '    <td>' + getChargerActionButton(charger.status, id) + '</td>\n' +
+        '    <td class="col-xs-4">' + getChargerName(charger.type) + '</td>\n' +
+        '    <td class="col-xs-3">' + getChargerStatus(charger.status) + '</td>\n' +
+        '    <td class="col-xs-3" name="chargeTime" data-time="' + charger.time + '">' + getChargerTime(charger.status, charger.time) + '</td>\n' +
+        '    <td class="col-xs-2">' + getChargerActionButton(charger.status, id) + '</td>\n' +
         '</tr>\n';
     return tr;
 };
@@ -90,29 +92,53 @@ var getChargerTime = function(status, time) {
     else return timeSince(time);
 };
 
-function timeSince(date) {
+var timeSince = function(date) {
+    if (typeof date !== 'object') {
+        date = new Date(date);
+    }
+
     var seconds = Math.floor((new Date() - date) / 1000);
+    var intervalType;
 
     var interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) {
+        intervalType = 'year';
+    } else {
+        interval = Math.floor(seconds / 2592000);
+        if (interval >= 1) {
+            intervalType = 'month';
+        } else {
+            interval = Math.floor(seconds / 86400);
+            if (interval >= 1) {
+                intervalType = 'day';
+            } else {
+                interval = Math.floor(seconds / 3600);
+                if (interval >= 1) {
+                    intervalType = "hour";
+                } else {
+                    interval = Math.floor(seconds / 60);
+                    if (interval >= 1) {
+                        intervalType = "minute";
+                    } else {
+                        interval = seconds;
+                        intervalType = "second";
+                    }
+                }
+            }
+        }
+    }
 
-    if (interval > 1) {
-        return interval + " years";
+    if (interval > 1 || interval === 0) {
+        intervalType += 's';
     }
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-        return interval + " months";
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-        return interval + " days";
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-        return interval + " hours";
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-        return interval + " minutes";
-    }
-    return Math.floor(seconds) + " seconds";
-}
+
+    return interval + ' ' + intervalType;
+};
+
+var updateTime = function() {
+    timeFields.forEach(function(tf) {
+        var time = tf.getAttribute('data-time');
+        if (time > 0) tf.innerHTML = timeSince(parseInt(time));
+    });
+};
+setInterval(updateTime, 1000);
