@@ -21,5 +21,7 @@ stationsRef.child(query.id).once('value', function(snapshot) {
         document.getElementById('openFri').innerHTML = data.days.fri;
         document.getElementById('openSat').innerHTML = data.days.sat;
         document.getElementById('openSun').innerHTML = data.days.sun;
+
+        doneLoading();
     }
 });

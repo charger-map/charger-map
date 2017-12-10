@@ -2,8 +2,19 @@
     height: 80vh;
 }
 
+#page {
+    position: relative;
+    padding-bottom: 15px;
+    min-height: 100vh;
+}
+
 footer {
     background: #DDDDDD;
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    padding: 5px;
 }
 
 textarea {
@@ -20,9 +31,13 @@ textarea {
         margin-left: 0;
         margin-right: 0;
     }
+    footer {
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+    }
 }
 
-/* navbar overrides for small screens*/
+/* navbar overrides for small screens */
 .navbar-form {
     width: auto;
     padding-top: 0;
@@ -43,4 +58,20 @@ textarea {
 }
 .navbar-header {
     float: left;
+}
+
+/* loader */
+.loader {
+    border: 12px solid #dadada;
+    border-top: 12px solid #888;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-top: 30vh;
+    animation: spin 1.5s cubic-bezier(0.75,0.25,0.25,0.75) infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

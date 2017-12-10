@@ -56,6 +56,8 @@ if (edit) {
             document.getElementById('charger1count').value = data.chargers.type1;
             document.getElementById('charger2count').value = data.chargers.type2;
             document.getElementById('charger3count').value = data.chargers.commando;
+
+            doneLoading();
         }
     });
 } else {

@@ -22,3 +22,10 @@ var parseQueryString = function() {
     );
     return objURL;
 };
+
+var doneLoading = function () {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('content').removeAttribute('hidden');
+}
+
+document.getElementsByTagName('footer')[0].innerHTML='Copyright &copy; Charger Map 2017';

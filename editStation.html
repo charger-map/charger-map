@@ -21,148 +21,149 @@
         </div>
     </nav>
 
-    <h1 id="title">Add charging station</h1>
+    <div class="loader center-block" id="loader"></div>
+    <div id="content" hidden>
+        <h1 id="title">Add charging station</h1>
 
-    <form class="form-horizontal">
-        <div class="row">
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Name</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="stationName" id="stationName" placeholder="Powerpark">
+        <form class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Name</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="stationName" id="stationName" placeholder="Powerpark">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Location</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="stationLoc" id="stationLoc" placeholder="Uluru">
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Location</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="stationLoc" id="stationLoc" placeholder="Uluru">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Latitude</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="stationLat" id="stationLat" placeholder="-25.363">
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Latitude</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="stationLat" id="stationLat" placeholder="-25.363">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Longitude</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="stationLng" id="stationLng" placeholder="131.044">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Description</label>
-                    <div class="col-md-8 col-xs-7">
-                        <textarea class="form-control" name="stationDesc" id="stationDesc" rows="5" placeholder="The best charging station in 100 miles!"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Opening hours:</label>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Monday</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="openMon" id="openMon" placeholder="8:00 - 22:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Tuesday</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="openTue" id="openTue" placeholder="8:00 - 22:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Wednesday</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="openWed" id="openWed" placeholder="8:00 - 22:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Thursday</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="openThu" id="openThu" placeholder="8:00 - 22:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Friday</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="openFri" id="openFri" placeholder="8:00 - 22:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Saturday</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="openSat" id="openSat" placeholder="8:00 - 22:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Sunday</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input class="form-control" name="openSun" id="openSun" placeholder="8:00 - 22:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Chargers:</label>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Type 1</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input type="number" class="form-control" name="charger1count" id="charger1count" placeholder="2">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Type 2</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input type="number" class="form-control" name="charger2count" id="charger2count" placeholder="2">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Commando</label>
-                    <div class="col-md-8 col-xs-7">
-                        <input type="number" class="form-control" name="charger3count" id="charger3count" placeholder="1">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xs-12">
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label">Photos</label>
-                    <div class="col-md-8 col-xs-7">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-default">
-                                    Browse&hellip; <input type="file" name="photos" id="photos" style="display: none;" multiple>
-                                </span>
-                            </label>
-                            <input class="form-control" readonly>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Longitude</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="stationLng" id="stationLng" placeholder="131.044">
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-4 col-xs-5 control-label"></label>
-                    <div class="col-md-8 col-xs-7">
-                        <div class="well well-sm photo-preview">
-                            <img src="placeholder.jpg" width="100%">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Description</label>
+                        <div class="col-md-8 col-xs-7">
+                            <textarea class="form-control" name="stationDesc" id="stationDesc" rows="5" placeholder="The best charging station in 100 miles!"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <button type="button" class="btn btn-success pull-right" id="submitButton" onclick="submitForm()">Add station</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Opening hours:</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Monday</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="openMon" id="openMon" placeholder="8:00 - 22:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Tuesday</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="openTue" id="openTue" placeholder="8:00 - 22:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Wednesday</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="openWed" id="openWed" placeholder="8:00 - 22:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Thursday</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="openThu" id="openThu" placeholder="8:00 - 22:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Friday</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="openFri" id="openFri" placeholder="8:00 - 22:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Saturday</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="openSat" id="openSat" placeholder="8:00 - 22:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Sunday</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input class="form-control" name="openSun" id="openSun" placeholder="8:00 - 22:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Chargers:</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Type 1</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input type="number" class="form-control" name="charger1count" id="charger1count" placeholder="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Type 2</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input type="number" class="form-control" name="charger2count" id="charger2count" placeholder="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Commando</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input type="number" class="form-control" name="charger3count" id="charger3count" placeholder="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Photos</label>
+                        <div class="col-md-8 col-xs-7">
+                            <div class="input-group">
+                                <label class="input-group-btn">
+                                    <span class="btn btn-default">
+                                        Browse&hellip; <input type="file" name="photos" id="photos" style="display: none;" multiple>
+                                    </span>
+                                </label>
+                                <input class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label"></label>
+                        <div class="col-md-8 col-xs-7">
+                            <div class="well well-sm photo-preview">
+                                <img src="placeholder.jpg" width="100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-success pull-right" id="submitButton" onclick="submitForm()">Add station</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
     <footer class="xs-full-width">
-        Footer<br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elementum sapien at elementum semper. Nulla in dignissim magna. Duis velit eros, pretium eget mi id, tristique tincidunt arcu. Vestibulum placerat, libero eu pulvinar ultricies, ligula diam placerat mauris, cursus imperdiet mi risus ut mi. Donec in condimentum arcu. Morbi turpis ipsum, vestibulum id ex ac, accumsan vehicula magna. Sed tincidunt placerat risus, ut pellentesque neque tincidunt in. Etiam accumsan tempor laoreet. Aenean erat odio, iaculis id pulvinar sed, dapibus eu arcu. Nunc quis lobortis nibh. Nam malesuada faucibus fermentum. Quisque elementum dapibus nulla, vitae rhoncus elit molestie a. Phasellus ultricies viverra felis, eget viverra augue.
     </footer>
 </div>
 

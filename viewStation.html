@@ -21,98 +21,100 @@
         </div>
     </nav>
 
-    <h1><span id="stationName">Powerpark</span> <small id="stationLoc">Uluru</small></h1>
+    <div class="loader center-block" id="loader"></div>
+    <div id="content" hidden>
+        <h1><span id="stationName">Powerpark</span> <small id="stationLoc">Uluru</small></h1>
 
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <p id="stationDesc">The best charging station in 100 miles!</p>
-            <div class="row">
-                <div class="col-xs-12 col-lg-8">
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <td>Monday</td>
-                        <td id="openMon">8:00 - 22:00</td>
-                    </tr>
-                    <tr>
-                        <td>Tuesday</td>
-                        <td id="openTue">8:00 - 22:00</td>
-                    </tr>
-                    <tr>
-                        <td>Wednesday</td>
-                        <td id="openWed">8:00 - 22:00</td>
-                    </tr>
-                    <tr>
-                        <td>Thursday</td>
-                        <td id="openThu">8:00 - 22:00</td>
-                    </tr>
-                    <tr>
-                        <td>Friday</td>
-                        <td id="openFri">8:00 - 22:00</td>
-                    </tr>
-                    <tr>
-                        <td>Saturday</td>
-                        <td id="openSat">8:00 - 22:00</td>
-                    </tr>
-                    <tr>
-                        <td>Sunday</td>
-                        <td id="openSun">8:00 - 22:00</td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <p id="stationDesc">The best charging station in 100 miles!</p>
+                <div class="row">
+                    <div class="col-xs-12 col-lg-8">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>Monday</td>
+                            <td id="openMon">8:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td id="openTue">8:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td id="openWed">8:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Thursday</td>
+                            <td id="openThu">8:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td id="openFri">8:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td id="openSat">8:00 - 22:00</td>
+                        </tr>
+                        <tr>
+                            <td>Sunday</td>
+                            <td id="openSun">8:00 - 22:00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="well well-sm text-center">
+                    <img src="placeholder.jpg" class="stationPhoto" width="100%">
+                </div>
+            </div>
+            <div class="col-md-4 hidden-sm hidden-xs">
+                <div class="well well-sm text-center">
+                    <img src="placeholder.jpg" class="stationPhoto" width="100%">
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="well well-sm text-center">
-                <img src="placeholder.jpg" class="stationPhoto" width="100%">
-            </div>
-        </div>
-        <div class="col-md-4 hidden-sm hidden-xs">
-            <div class="well well-sm text-center">
-                <img src="placeholder.jpg" class="stationPhoto" width="100%">
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-8 col-md-6">
-            <h3>Chargers</h3>
-            <table class="table">
-                <tbody>
-                <tr>
-                    <td>Type 1</td>
-                    <td>Occupied</td>
-                    <td><button type="button" class="btn btn-danger btn-xs hidden">Check out</button></td>
-                </tr>
-                <tr>
-                    <td>Type 1</td>
-                    <td>Free</td>
-                    <td><button type="button" class="btn btn-success btn-xs">Check in</button></td>
-                </tr>
-                <tr>
-                    <td>Type 2</td>
-                    <td>Me</td>
-                    <td><button type="button" class="btn btn-danger btn-xs">Check out</button></td>
-                </tr>
-                <tr>
-                    <td>Type 2</td>
-                    <td>Occupied</td>
-                    <td><button type="button" class="btn btn-danger btn-xs hidden">Check out</button></td>
-                </tr>
-                <tr>
-                    <td>Commando</td>
-                    <td>Free</td>
-                    <td><button type="button" class="btn btn-success btn-xs">Check in</button></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6">
+                <h3>Chargers</h3>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Type 1</td>
+                        <td>Occupied</td>
+                        <td><button type="button" class="btn btn-danger btn-xs hidden">Check out</button></td>
+                    </tr>
+                    <tr>
+                        <td>Type 1</td>
+                        <td>Free</td>
+                        <td><button type="button" class="btn btn-success btn-xs">Check in</button></td>
+                    </tr>
+                    <tr>
+                        <td>Type 2</td>
+                        <td>Me</td>
+                        <td><button type="button" class="btn btn-danger btn-xs">Check out</button></td>
+                    </tr>
+                    <tr>
+                        <td>Type 2</td>
+                        <td>Occupied</td>
+                        <td><button type="button" class="btn btn-danger btn-xs hidden">Check out</button></td>
+                    </tr>
+                    <tr>
+                        <td>Commando</td>
+                        <td>Free</td>
+                        <td><button type="button" class="btn btn-success btn-xs">Check in</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <footer class="xs-full-width">
-        Footer<br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elementum sapien at elementum semper. Nulla in dignissim magna. Duis velit eros, pretium eget mi id, tristique tincidunt arcu. Vestibulum placerat, libero eu pulvinar ultricies, ligula diam placerat mauris, cursus imperdiet mi risus ut mi. Donec in condimentum arcu. Morbi turpis ipsum, vestibulum id ex ac, accumsan vehicula magna. Sed tincidunt placerat risus, ut pellentesque neque tincidunt in. Etiam accumsan tempor laoreet. Aenean erat odio, iaculis id pulvinar sed, dapibus eu arcu. Nunc quis lobortis nibh. Nam malesuada faucibus fermentum. Quisque elementum dapibus nulla, vitae rhoncus elit molestie a. Phasellus ultricies viverra felis, eget viverra augue.
+
     </footer>
 </div>
 
