@@ -55,7 +55,7 @@ if (edit) {
             document.getElementById('openSun').value = data.days.sun;
             document.getElementById('charger1count').value = data.chargers.type1;
             document.getElementById('charger2count').value = data.chargers.type2;
-            document.getElementById('charger3count').value = data.chargers.type3;
+            document.getElementById('charger3count').value = data.chargers.commando;
         }
     });
 } else {
