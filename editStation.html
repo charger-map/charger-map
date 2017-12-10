@@ -109,27 +109,6 @@
                             <input class="form-control" name="openSun" id="openSun" placeholder="8:00 - 22:00">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Chargers:</label>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Type 1</label>
-                        <div class="col-md-8 col-xs-7">
-                            <input type="number" class="form-control" name="charger1count" id="charger1count" placeholder="2">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Type 2</label>
-                        <div class="col-md-8 col-xs-7">
-                            <input type="number" class="form-control" name="charger2count" id="charger2count" placeholder="2">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Commando</label>
-                        <div class="col-md-8 col-xs-7">
-                            <input type="number" class="form-control" name="charger3count" id="charger3count" placeholder="1">
-                        </div>
-                    </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -153,15 +132,52 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row" id="submitDetails">
+                <div class="col-xs-12 text-right">
+                    <button type="button" class="btn btn-success" id="submitDetailsButton" onclick="submitDetails()">Update details</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <div class="col-xs-12">
-                            <button type="button" class="btn btn-success pull-right" id="submitButton" onclick="submitForm()">Add station</button>
+                        <label class="col-md-4 col-xs-5 control-label">Chargers:</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Type 1</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input type="number" class="form-control" name="charger1count" id="charger1count" placeholder="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Type 2</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input type="number" class="form-control" name="charger2count" id="charger2count" placeholder="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 col-xs-5 control-label">Commando</label>
+                        <div class="col-md-8 col-xs-7">
+                            <input type="number" class="form-control" name="charger3count" id="charger3count" placeholder="1">
+                        </div>
+                    </div>
+                    <div class="form-group" id="submitChargers">
+                        <span class="col-md-8 col-xs-7 control-label text-danger">Updating chargers will reset their status</span>
+                        <div class="col-md-4 col-xs-5 text-right">
+                            <button type="button" class="btn btn-success" onclick="submitChargers()">Update Chargers</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 text-right">
+                    <button type="button" class="btn btn-success" id="submitAdd" onclick="submitChargers()">Add station</button>
+                </div>
+            </div>
         </form>
     </div>
+    <br>
 
     <footer class="xs-full-width">
     </footer>

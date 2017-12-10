@@ -34,7 +34,7 @@ var edit = typeof query.id !== 'undefined';
 
 if (edit) {
     document.getElementById('title').innerHTML = 'Edit station';
-    document.getElementById('submitButton').innerHTML = 'Update station';
+    document.getElementById('submitAdd').style.display = 'none';
 
     stationsRef.child(query.id).once('value', function(snapshot) {
         var data = snapshot.val();
@@ -61,6 +61,9 @@ if (edit) {
         }
     });
 } else {
+    document.getElementById('submitDetails').style.display = 'none';
+    document.getElementById('submitChargers').style.display = 'none';
+
     if (query.hasOwnProperty('lat')) {
         document.getElementById('stationLat').value = query.lat;
     }
@@ -68,9 +71,33 @@ if (edit) {
     if (query.hasOwnProperty('lng')) {
         document.getElementById('stationLng').value = query.lng;
     }
+
+    doneLoading();
 }
 
-var submitForm = function () {
+var submitDetails = function () {
+    var station = {
+        name: document.getElementById('stationName').value,
+        loc: document.getElementById('stationLoc').value,
+        position: {
+            lat: parseFloat(document.getElementById('stationLat').value),
+            lng: parseFloat(document.getElementById('stationLng').value)
+        },
+        desc: document.getElementById('stationDesc').value,
+        days: {
+            mon: document.getElementById('openMon').value,
+            tue: document.getElementById('openTue').value,
+            wed: document.getElementById('openWed').value,
+            thu: document.getElementById('openThu').value,
+            fri: document.getElementById('openFri').value,
+            sat: document.getElementById('openSat').value,
+            sun: document.getElementById('openSun').value
+        }
+    };
+    stationsRef.child(query.id).update(station).then(function() {location.href = '#'}, function(err) {console.log(err); alert('Error')});
+};
+
+var submitChargers = function () {
     var station = {
         name: document.getElementById('stationName').value,
         loc: document.getElementById('stationLoc').value,
@@ -94,11 +121,26 @@ var submitForm = function () {
             commando: document.getElementById('charger3count').value
         }
     };
+    var chargerData = [];
+    for (var i = 1; i <= station.chargers.type1; i++) {
+        chargerData.push(newChargerData('type1'));
+    }
+    for (i = 1; i <= station.chargers.type2; i++) {
+        chargerData.push(newChargerData('type2'));
+    }
+    for (i = 1; i <= station.chargers.commando; i++) {
+        chargerData.push(newChargerData('commando'));
+    }
+    station.chargerData = chargerData;
 
     if (edit) {
-        stationsRef.child(query.id).update(station).then(function() {location.href = 'index.html'}, function(err) {console.log(err); alert('Error')});
+        stationsRef.child(query.id).update(station).then(function() {location.href = '#'}, function(err) {console.log(err); alert('Error')});
     } else {
         var newRef = stationsRef.push();
         newRef.set(station).then(function() {location.href = 'index.html'}, function(err) {console.log(err); alert('Error')});
     }
+};
+
+var newChargerData = function (type) {
+    return {type: type, status: 0, time: -1};
 };
