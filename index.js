@@ -6,12 +6,19 @@ var tooltips = [];
 var map;
 
 function initMap() {
-    var uluru = {lat: -25.363, lng: 131.044};
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: uluru
+        zoom: 2,
+        center: {lat: 0, lng: 0}
     });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(initialLocation);
+            map.setZoom(9);
+        });
+    }
 
     var addStationTooltip = new google.maps.InfoWindow({});
     tooltips.push(addStationTooltip);
@@ -71,12 +78,13 @@ var updateMarker = function (id, station) {
 };
 
 var getDetailTooltipString = function(station, id) {
-    return '<h3>' + station.name + ' <small>' + station.loc + '</small></h3>' +
+    return '<div style="">' +
+        '<h3>' + station.name + ' <small>' + station.loc + '</small></h3>' +
         '<p>' + station.desc + '</p>' +
         '<p class="pull-right">' +
         '<a class="btn btn-warning btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
         '<a class="btn btn-primary btn-xs" href="viewStation.html?id=' + id +'">Details</a>' +
-        '</p>'
+        '</p></div>'
 };
 
 var getAddTooltipString = function(lat, lng) {

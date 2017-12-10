@@ -36,7 +36,7 @@ if (edit) {
     document.getElementById('title').innerHTML = 'Edit station';
     document.getElementById('submitButton').innerHTML = 'Update station';
 
-    stationsRef.child(query.id).once('value', function (snapshot) {
+    stationsRef.child(query.id).once('value', function(snapshot) {
         var data = snapshot.val();
         if (!data) {
             alert('Error');
@@ -94,9 +94,9 @@ var submitForm = function () {
     };
 
     if (edit) {
-        stationsRef.child(query.id).update(station).then(function() {location.href = 'index.html'}, function (err) {console.log(err); alert('Error')});
+        stationsRef.child(query.id).update(station).then(function() {location.href = 'index.html'}, function(err) {console.log(err); alert('Error')});
     } else {
         var newRef = stationsRef.push();
-        newRef.set(station).then(function() {location.href = 'index.html'}, function (err) {console.log(err); alert('Error')});
+        newRef.set(station).then(function() {location.href = 'index.html'}, function(err) {console.log(err); alert('Error')});
     }
 };
