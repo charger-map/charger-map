@@ -28,4 +28,9 @@ var doneLoading = function () {
     document.getElementById('content').removeAttribute('hidden');
 }
 
+var showLoading = function () {
+    document.getElementById('loader').style.display = 'block';
+    document.getElementById('content').setAttribute('hidden', true);
+}
+
 document.getElementsByTagName('footer')[0].innerHTML='Copyright &copy; Charger Map 2017';

@@ -21,12 +21,19 @@ $(function() {
                 if( log ) alert(log);
             }
 
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				document.getElementById('photo-preview').setAttribute('src', e.target.result);
+			}
+			reader.readAsDataURL(document.getElementById('photo').files[0]);
+			
         });
     });
 
 });
 
 var stationsRef = firebase.database().ref('stations/');
+var photoRef = firebase.storage().ref('stations/');
 
 var query = parseQueryString();
 
@@ -57,7 +64,16 @@ if (edit) {
             document.getElementById('charger2count').value = data.chargers.type2;
             document.getElementById('charger3count').value = data.chargers.commando;
 
-            doneLoading();
+			photoRef.child(query.id).getDownloadURL().then(
+				function(url) {
+					document.getElementById('photo-preview').src = url;
+					doneLoading();
+				},
+				function(err) {
+					// no picture yet
+					doneLoading();
+				}
+			);
         }
     });
 } else {
@@ -76,6 +92,7 @@ if (edit) {
 }
 
 var submitDetails = function () {
+	showLoading();
     var station = {
         name: document.getElementById('stationName').value,
         loc: document.getElementById('stationLoc').value,
@@ -94,10 +111,18 @@ var submitDetails = function () {
             sun: document.getElementById('openSun').value
         }
     };
-    stationsRef.child(query.id).update(station).then(function() {location.href = '#'}, function(err) {console.log(err); alert('Error')});
+    stationsRef.child(query.id).update(station).then(
+		function() {
+			uploadPhoto('#');
+		}, 
+		function(err) {
+			console.log(err); alert('Error')
+		}
+	);
 };
 
 var submitChargers = function () {
+	showLoading();
     var station = {
         name: document.getElementById('stationName').value,
         loc: document.getElementById('stationLoc').value,
@@ -134,11 +159,45 @@ var submitChargers = function () {
     station.chargerData = chargerData;
 
     if (edit) {
-        stationsRef.child(query.id).update(station).then(function() {location.href = '#'}, function(err) {console.log(err); alert('Error')});
+        stationsRef.child(query.id).update({chargers: station.chargers, chargerData: station.chargerData}).then(
+			function() {
+				doneLoading();
+				location.href = '#'
+			}, 
+			function(err) {
+				console.log(err); 
+				alert('Error')
+			}
+		);
     } else {
         var newRef = stationsRef.push();
-        newRef.set(station).then(function() {location.href = 'index.html'}, function(err) {console.log(err); alert('Error')});
+        newRef.set(station).then(
+			function() {
+				uploadPhoto('index.html');
+			}, 
+			function(err) {
+				console.log(err); 
+				alert('Error')
+			}
+		);
     }
+};
+
+var uploadPhoto = function(target) {
+	var files = document.getElementById('photo').files;
+	if (files.length > 0) {
+		photoRef.child(query.id).put(files[0]).then(
+			function() {
+				doneLoading();
+				location.href = target;
+			},
+			function(err) {
+				console.log(err); alert('Error');
+			}
+		);
+	} else {
+		doneLoading();
+	}
 };
 
 var newChargerData = function (type) {

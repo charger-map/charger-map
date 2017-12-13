@@ -5,6 +5,7 @@ if (!query.id) {
 }
 
 var stationsRef = firebase.database().ref('stations/');
+var photoRef = firebase.storage().ref('stations/');
 
 var timeFields = [];
 
@@ -32,7 +33,15 @@ stationsRef.child(query.id).on('value', function(snapshot) {
 
         timeFields = document.getElementsByName('chargeTime');
 
-        doneLoading();
+		photoRef.child(query.id).getDownloadURL().then(
+			function(url) {
+				document.getElementById('station-photo').src = url;
+				doneLoading();
+			},
+			function(err) {
+				doneLoading();
+			}
+		);
     }
 });
 

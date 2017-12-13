@@ -1,5 +1,7 @@
-#map{
-    height: 80vh;
+.full-height {
+    height: calc(100vh - 150px);
+	overflow-x: none;
+	overflow-y: auto;
 }
 
 #page {
