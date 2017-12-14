@@ -1,5 +1,7 @@
-#map{
-    height: 80vh;
+.full-height {
+    height: calc(100vh - 150px);
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 #page {
@@ -35,6 +37,10 @@ textarea {
         border-top-right-radius: 4px;
         border-top-left-radius: 4px;
     }
+}
+
+.display-none {
+    display: none;
 }
 
 /* navbar overrides for small screens */

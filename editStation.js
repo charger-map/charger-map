@@ -21,12 +21,19 @@ $(function() {
                 if( log ) alert(log);
             }
 
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				document.getElementById('photo-preview').setAttribute('src', e.target.result);
+			};
+			reader.readAsDataURL(document.getElementById('photo').files[0]);
+			
         });
     });
 
 });
 
 var stationsRef = firebase.database().ref('stations/');
+var photoRef = firebase.storage().ref('stations/');
 
 var query = parseQueryString();
 
@@ -34,6 +41,7 @@ var edit = typeof query.id !== 'undefined';
 
 if (edit) {
     document.getElementById('title').innerHTML = 'Edit station';
+    document.getElementById('nav-title').innerHTML = 'Edit station';
     document.getElementById('submitAdd').style.display = 'none';
 
     stationsRef.child(query.id).once('value', function(snapshot) {
@@ -57,12 +65,22 @@ if (edit) {
             document.getElementById('charger2count').value = data.chargers.type2;
             document.getElementById('charger3count').value = data.chargers.commando;
 
-            doneLoading();
+			photoRef.child(query.id).getDownloadURL().then(
+				function(url) {
+					document.getElementById('photo-preview').src = url;
+					doneLoading();
+				},
+				function() {
+					// no picture yet
+					doneLoading();
+				}
+			);
         }
     });
 } else {
     document.getElementById('submitDetails').style.display = 'none';
     document.getElementById('submitChargers').style.display = 'none';
+    document.getElementById('submitDelete').style.display = 'none';
 
     if (query.hasOwnProperty('lat')) {
         document.getElementById('stationLat').value = query.lat;
@@ -76,6 +94,7 @@ if (edit) {
 }
 
 var submitDetails = function () {
+	showLoading();
     var station = {
         name: document.getElementById('stationName').value,
         loc: document.getElementById('stationLoc').value,
@@ -94,10 +113,18 @@ var submitDetails = function () {
             sun: document.getElementById('openSun').value
         }
     };
-    stationsRef.child(query.id).update(station).then(function() {location.href = '#'}, function(err) {console.log(err); alert('Error')});
+    stationsRef.child(query.id).update(station).then(
+		function() {
+			uploadPhoto('#');
+		}, 
+		function(err) {
+			console.log(err); alert('Error')
+		}
+	);
 };
 
 var submitChargers = function () {
+	showLoading();
     var station = {
         name: document.getElementById('stationName').value,
         loc: document.getElementById('stationLoc').value,
@@ -134,13 +161,82 @@ var submitChargers = function () {
     station.chargerData = chargerData;
 
     if (edit) {
-        stationsRef.child(query.id).update(station).then(function() {location.href = '#'}, function(err) {console.log(err); alert('Error')});
+        stationsRef.child(query.id).update({chargers: station.chargers, chargerData: station.chargerData}).then(
+			function() {
+				doneLoading();
+				location.href = '#'
+			}, 
+			function(err) {
+				console.log(err); 
+				alert('Error');
+			}
+		);
     } else {
         var newRef = stationsRef.push();
-        newRef.set(station).then(function() {location.href = 'index.html'}, function(err) {console.log(err); alert('Error')});
+        newRef.set(station).then(
+			function() {
+				uploadPhoto('manage.html');
+			}, 
+			function(err) {
+				console.log(err); 
+				alert('Error');
+			}
+		);
     }
+};
+
+var confirmedDelete = false;
+var submitDelete = function () {
+    if (!confirmedDelete) {
+        document.getElementById('deleteButton').innerHTML = 'Are you sure?';
+        confirmedDelete = true;
+    } else {
+        stationsRef.child(query.id).remove().then(
+            function() {
+                location.href = 'manage.html';
+            },
+            function(err) {
+                console.log(err);
+                alert('Error');
+            }
+        );
+    }
+};
+
+var uploadPhoto = function(target) {
+	var files = document.getElementById('photo').files;
+	if (files.length > 0) {
+		photoRef.child(query.id).put(files[0]).then(
+			function() {
+				doneLoading();
+				location.href = target;
+			},
+			function(err) {
+				console.log(err); alert('Error');
+			}
+		);
+	} else {
+		doneLoading();
+	}
 };
 
 var newChargerData = function (type) {
     return {type: type, status: 0, time: -1};
 };
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        document.getElementById('loginButton').style.display = 'none';
+        document.getElementById('logoutButton').style.display = 'inline-block';
+        document.getElementById('user').style.display = 'inline';
+        document.getElementById('user').innerHTML = user.email;
+        firebase.database().ref('users/').child(user.uid).once('value', function(snapshot) {
+            var data = snapshot.val();
+            if (data.owner) {
+                document.getElementById('ownerControls').style.display = 'inline';
+            }
+        });
+    } else {
+        location.href = "index.html";
+    }
+});
