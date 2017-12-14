@@ -16,41 +16,34 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function (position) {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(initialLocation);
-            map.setZoom(7);
+            map.setZoom(10);
         });
     }
 
-    var addStationTooltip = new google.maps.InfoWindow({});
-    tooltips.push(addStationTooltip);
-
-    map.addListener('click', function (event) {
+    map.addListener('click', function () {
         tooltips.forEach(function (tt) {tt.close()});
-        addStationTooltip.setPosition(event.latLng);
-        var lat = event.latLng.lat();
-        var lng = event.latLng.lng();
-        addStationTooltip.setContent(getAddTooltipString(lat, lng));
-        addStationTooltip.open(map);
     });
 
     stationsRef.once('value', function(snapshot) {
         markers = {};
         snapshot.forEach(function(child) {
-            addMarker(child.key, child.val(), map);
+            var station = child.val();
+            if (!station.deleted) addMarker(child.key, station, map);
         });
     });
 }
 
-stationsRef.on('child_added', function (data) {
-    addMarker(data.key, data.val());
-});
-
-stationsRef.on('child_changed', function (data) {
-    updateMarker(data.key, data.val());
-});
-
-stationsRef.on('child_removed', function (data) {
-    deleteMarker(data.key);
-});
+// stationsRef.on('child_added', function (data) {
+//     addMarker(data.key, data.val());
+// });
+//
+// stationsRef.on('child_changed', function (data) {
+//     updateMarker(data.key, data.val());
+// });
+//
+// stationsRef.on('child_removed', function (data) {
+//     deleteMarker(data.key);
+// });
 
 var addMarker = function(id, station) {
     var marker = new google.maps.Marker({
@@ -68,27 +61,40 @@ var addMarker = function(id, station) {
     markers[id] = marker;
 };
 
-var deleteMarker = function (id) {
-    markers[id].map = null;
-    delete markers[id];
-};
-
-var updateMarker = function (id, station) {
-    addMarker(id, station);
-};
+// var deleteMarker = function (id) {
+//     markers[id].map = null;
+//     delete markers[id];
+// };
+//
+// var updateMarker = function (id, station) {
+//     addMarker(id, station);
+// };
 
 var getDetailTooltipString = function(station, id) {
     return '<div style="">' +
         '<h3>' + station.name + ' <small>' + station.loc + '</small></h3>' +
         '<p>' + station.desc + '</p>' +
         '<p class="pull-right">' +
-        '<a class="btn btn-warning btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
         '<a class="btn btn-primary btn-xs" href="viewStation.html?id=' + id +'">Details</a>' +
         '</p></div>'
 };
 
-var getAddTooltipString = function(lat, lng) {
-    return '<p>Latitude: ' + lat + '<br>' +
-        'Longitude: ' + lng + '</p>' +
-    '<a href="editStation.html?lat=' + lat + '&lng=' + lng + '" class="btn btn-success btn-xs pull-right">Add station</a>'
-};
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        document.getElementById('loginButton').style.display = 'none';
+        document.getElementById('logoutButton').style.display = 'inline-block';
+        document.getElementById('user').style.display = 'inline';
+        document.getElementById('user').innerHTML = user.email;
+        firebase.database().ref('users/').child(user.uid).once('value', function(snapshot) {
+            var data = snapshot.val();
+            if (data.owner) {
+                document.getElementById('ownerControls').style.display = 'inline';
+            }
+        });
+    } else {
+        document.getElementById('loginButton').style.display = 'inline-block';
+        document.getElementById('logoutButton').style.display = 'none';
+        document.getElementById('user').style.display = 'none';
+        document.getElementById('ownerControls').style.display = 'none';
+    }
+});

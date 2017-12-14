@@ -12,10 +12,19 @@
     <nav class="navbar navbar-default xs-full-width">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">Charger map</a>
+                <a class="navbar-brand hidden-sm hidden-md hidden-lg" href="index.html" style="visibility: hidden;"><span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a class="navbar-brand" href="#">CM</a>
             </div>
+            <ul class="nav navbar-nav display-none hidden-xs" id="ownerControls">
+                <li class="active"><a href="#">Map</a></li>
+                <li><a href="manage.html">Manage stations</a></li>
+            </ul>
             <div class="navbar-form navbar-right">
-				<a class="btn btn-primary" disabled>Log in</a>
+				<a class="btn btn-primary display-none" id="loginButton" href="login.html">Log in</a>
+                <button class="btn btn-default display-none" id="logoutButton" onclick="logout()">Log out</button>
+            </div>
+            <div class="navbar-right hidden-xs">
+                <p class="navbar-text display-none" id="user"></p>
             </div>
         </div>
     </nav>

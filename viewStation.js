@@ -4,6 +4,8 @@ if (!query.id) {
     location.replace('index.html');
 }
 
+document.getElementById('loginButton').setAttribute('href', 'login.html?target=viewStation.html&id='+query.id);
+
 var stationsRef = firebase.database().ref('stations/');
 var photoRef = firebase.storage().ref('stations/');
 
@@ -38,7 +40,7 @@ stationsRef.child(query.id).on('value', function(snapshot) {
 				document.getElementById('station-photo').src = url;
 				doneLoading();
 			},
-			function(err) {
+			function() {
 				doneLoading();
 			}
 		);
@@ -151,3 +153,24 @@ var updateTime = function() {
     });
 };
 setInterval(updateTime, 1000);
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        document.getElementById('loginButton').style.display = 'none';
+        document.getElementById('logoutButton').style.display = 'inline-block';
+        document.getElementById('user').style.display = 'inline';
+        document.getElementById('user').innerHTML = user.email;
+        firebase.database().ref('users/').child(user.uid).once('value', function(snapshot) {
+            var data = snapshot.val();
+            if (data.owner) {
+                document.getElementById('ownerControls').style.display = 'inline';
+            }
+        });
+    } else {
+        document.getElementById('loginButton').style.display = 'inline-block';
+        document.getElementById('logoutButton').style.display = 'none';
+        document.getElementById('user').style.display = 'none';
+        document.getElementById('ownerControls').style.display = 'none';
+        // location.href = "#";
+    }
+});

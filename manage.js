@@ -12,45 +12,32 @@ function initMap() {
         center: {lat: 0, lng: 0}
     });
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            map.setCenter(initialLocation);
-            map.setZoom(7);
-        });
-    }
-
     var addStationTooltip = new google.maps.InfoWindow({});
     tooltips.push(addStationTooltip);
 
     map.addListener('click', function (event) {
         tooltips.forEach(function (tt) {tt.close()});
-        addStationTooltip.setPosition(event.latLng);
-        var lat = event.latLng.lat();
-        var lng = event.latLng.lng();
-        addStationTooltip.setContent(getAddTooltipString(lat, lng));
-        addStationTooltip.open(map);
-    });
-
-    stationsRef.once('value', function(snapshot) {
-        markers = {};
-        snapshot.forEach(function(child) {
-            addMarker(child.key, child.val(), map);
-        });
+        if (document.getElementById('addingMode').checked) {
+            addStationTooltip.setPosition(event.latLng);
+            var lat = event.latLng.lat();
+            var lng = event.latLng.lng();
+            addStationTooltip.setContent(getAddTooltipString(lat, lng));
+            addStationTooltip.open(map);
+        }
     });
 }
 
-stationsRef.on('child_added', function (data) {
-    addMarker(data.key, data.val());
-});
-
-stationsRef.on('child_changed', function (data) {
-    updateMarker(data.key, data.val());
-});
-
-stationsRef.on('child_removed', function (data) {
-    deleteMarker(data.key);
-});
+// stationsRef.on('child_added', function (data) {
+//     addMarker(data.key, data.val());
+// });
+//
+// stationsRef.on('child_changed', function (data) {
+//     updateMarker(data.key, data.val());
+// });
+//
+// stationsRef.on('child_removed', function (data) {
+//     deleteMarker(data.key);
+// });
 
 var addMarker = function(id, station) {
     var marker = new google.maps.Marker({
@@ -61,6 +48,7 @@ var addMarker = function(id, station) {
         content: getDetailTooltipString(station, id)
     });
     tooltips.push(infowindow);
+    marker.cmTooltip = infowindow;
     marker.addListener('click', function() {
         tooltips.forEach(function (tt) {tt.close()});
         infowindow.open(map, marker);
@@ -68,13 +56,20 @@ var addMarker = function(id, station) {
     markers[id] = marker;
 };
 
-var deleteMarker = function (id) {
-    markers[id].map = null;
-    delete markers[id];
-};
+// var deleteMarker = function (id) {
+//     markers[id].map = null;
+//     delete markers[id];
+// };
+//
+// var updateMarker = function (id, station) {
+//     addMarker(id, station);
+// };
 
-var updateMarker = function (id, station) {
-    addMarker(id, station);
+var centerOn = function(id) {
+    var marker = markers[id];
+    map.panTo(marker.position);
+    tooltips.forEach(function (tt) {tt.close()});
+    marker.cmTooltip.open(map, marker);
 };
 
 var getDetailTooltipString = function(station, id) {
@@ -83,7 +78,6 @@ var getDetailTooltipString = function(station, id) {
         '<p>' + station.desc + '</p>' +
         '<p class="pull-right">' +
         '<a class="btn btn-warning btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
-        '<a class="btn btn-primary btn-xs" href="viewStation.html?id=' + id +'">Details</a>' +
         '</p></div>'
 };
 
@@ -92,3 +86,42 @@ var getAddTooltipString = function(lat, lng) {
         'Longitude: ' + lng + '</p>' +
     '<a href="editStation.html?lat=' + lat + '&lng=' + lng + '" class="btn btn-success btn-xs pull-right">Add station</a>'
 };
+
+var getStationListRow = function(id, station) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td class="col-xs-10' + (station.deleted ? ' text-danger' : '') + '">' + station.name + '<br><small>' + station.loc + '</small></td>' +
+        '<td class="col-xs-1">' +
+        '<button type="button" class="btn btn-default" onclick="centerOn(\'' + id + '\')"><span class="glyphicon glyphicon-screenshot"></span></button>' +
+        '</td>';
+    return tr;
+};
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        document.getElementById('loginButton').style.display = 'none';
+        document.getElementById('logoutButton').style.display = 'inline-block';
+        document.getElementById('user').style.display = 'inline';
+        document.getElementById('user').innerHTML = user.email;
+        firebase.database().ref('users/').child(user.uid).once('value', function(snapshot) {
+            var data = snapshot.val();
+            if (data.owner) {
+                document.getElementById('ownerControls').style.display = 'inline';
+            }
+        });
+
+        stationsRef.orderByChild("owner").equalTo(user.uid).once('value', function(snapshot) {
+            markers = {};
+            var bounds = new google.maps.LatLngBounds();
+            snapshot.forEach(function(child) {
+                var station = child.val();
+                addMarker(child.key, station, map);
+                bounds.extend(station.position);
+                document.getElementById('stationList').appendChild(getStationListRow(child.key, station));
+            });
+            map.fitBounds(bounds);
+        });
+
+    } else {
+        location.href = "index.html";
+    }
+});

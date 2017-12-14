@@ -26,11 +26,20 @@ var parseQueryString = function() {
 var doneLoading = function () {
     document.getElementById('loader').style.display = 'none';
     document.getElementById('content').removeAttribute('hidden');
-}
+};
 
 var showLoading = function () {
     document.getElementById('loader').style.display = 'block';
     document.getElementById('content').setAttribute('hidden', true);
-}
+};
 
+var logout = function () {
+    firebase.auth().signOut().then(
+        function() {
+            location.href = 'index.html';
+        }
+    );
+};
+
+// init footer (on all pages)
 document.getElementsByTagName('footer')[0].innerHTML='Copyright &copy; Charger Map 2017';

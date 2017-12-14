@@ -24,7 +24,7 @@ $(function() {
 			var reader = new FileReader();
 			reader.onload = function (e) {
 				document.getElementById('photo-preview').setAttribute('src', e.target.result);
-			}
+			};
 			reader.readAsDataURL(document.getElementById('photo').files[0]);
 			
         });
@@ -41,6 +41,7 @@ var edit = typeof query.id !== 'undefined';
 
 if (edit) {
     document.getElementById('title').innerHTML = 'Edit station';
+    document.getElementById('nav-title').innerHTML = 'Edit station';
     document.getElementById('submitAdd').style.display = 'none';
 
     stationsRef.child(query.id).once('value', function(snapshot) {
@@ -69,7 +70,7 @@ if (edit) {
 					document.getElementById('photo-preview').src = url;
 					doneLoading();
 				},
-				function(err) {
+				function() {
 					// no picture yet
 					doneLoading();
 				}
@@ -79,6 +80,7 @@ if (edit) {
 } else {
     document.getElementById('submitDetails').style.display = 'none';
     document.getElementById('submitChargers').style.display = 'none';
+    document.getElementById('submitDelete').style.display = 'none';
 
     if (query.hasOwnProperty('lat')) {
         document.getElementById('stationLat').value = query.lat;
@@ -166,20 +168,38 @@ var submitChargers = function () {
 			}, 
 			function(err) {
 				console.log(err); 
-				alert('Error')
+				alert('Error');
 			}
 		);
     } else {
         var newRef = stationsRef.push();
         newRef.set(station).then(
 			function() {
-				uploadPhoto('index.html');
+				uploadPhoto('manage.html');
 			}, 
 			function(err) {
 				console.log(err); 
-				alert('Error')
+				alert('Error');
 			}
 		);
+    }
+};
+
+var confirmedDelete = false;
+var submitDelete = function () {
+    if (!confirmedDelete) {
+        document.getElementById('deleteButton').innerHTML = 'Are you sure?';
+        confirmedDelete = true;
+    } else {
+        stationsRef.child(query.id).remove().then(
+            function() {
+                location.href = 'manage.html';
+            },
+            function(err) {
+                console.log(err);
+                alert('Error');
+            }
+        );
     }
 };
 
@@ -203,3 +223,20 @@ var uploadPhoto = function(target) {
 var newChargerData = function (type) {
     return {type: type, status: 0, time: -1};
 };
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        document.getElementById('loginButton').style.display = 'none';
+        document.getElementById('logoutButton').style.display = 'inline-block';
+        document.getElementById('user').style.display = 'inline';
+        document.getElementById('user').innerHTML = user.email;
+        firebase.database().ref('users/').child(user.uid).once('value', function(snapshot) {
+            var data = snapshot.val();
+            if (data.owner) {
+                document.getElementById('ownerControls').style.display = 'inline';
+            }
+        });
+    } else {
+        location.href = "index.html";
+    }
+});
