@@ -1,12 +1,16 @@
 var query = parseQueryString();
 
+var loginEP = function(email, pass) {
+    firebase.auth().signInWithEmailAndPassword(email, pass).catch(function() {
+        document.getElementById('badlogin').removeAttribute('hidden');
+    })
+};
+
 var login = function() {
     var email = document.getElementById('email').value;
     var pass = document.getElementById('password').value;
 
-    firebase.auth().signInWithEmailAndPassword(email, pass).catch(function() {
-        document.getElementById('badlogin').removeAttribute('hidden');
-    })
+    loginEP(email, pass);
 };
 
 firebase.auth().onAuthStateChanged(function(user) {
