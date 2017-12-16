@@ -48,29 +48,6 @@ textarea {
     display: none;
 }
 
-/* navbar overrides for small screens */
-.navbar-form {
-    width: auto;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-right: 0;
-    margin-left: 0;
-    border: 0;
-    border-top-color: currentcolor;
-    border-right-color: currentcolor;
-    border-bottom-color: currentcolor;
-    border-left-color: currentcolor;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-.navbar-right {
-    float: right !important;
-    margin-right: -15px;
-}
-.navbar-header {
-    float: left;
-}
-
 /* loader */
 .loader {
     border: 12px solid #dadada;

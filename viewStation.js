@@ -172,7 +172,10 @@ firebase.auth().onAuthStateChanged(function(user) {
         firebase.database().ref('users/').child(user.uid).once('value', function(snapshot) {
             var data = snapshot.val();
             if (data.owner) {
-                document.getElementById('ownerControls').style.display = 'inline';
+                var ctrls =  document.getElementsByClassName('ownerControls');
+                for (var i = 0; i < ctrls.length; i++) {
+                    ctrls[i].classList.remove('hide');
+                }
             }
         });
     } else {
