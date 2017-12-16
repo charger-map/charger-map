@@ -128,3 +128,11 @@ firebase.auth().onAuthStateChanged(function(user) {
         location.href = "index.html";
     }
 });
+
+var toggleAddingTooltip = function() {
+    if (document.getElementById('addingMode').checked) {
+        document.getElementById('addingTooltip').classList.remove('hide');
+    } else {
+        document.getElementById('addingTooltip').classList.add('hide');
+    }
+};

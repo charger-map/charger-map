@@ -39,18 +39,19 @@
     </nav>
 
     <div class="row">
-        <div class="col-md-8 col-xs-12">
+        <div class="col-md-8 col-sm-7 col-xs-12">
             <div class="well well-sm">
                 <div id="map" class="full-height"></div>
             </div>
         </div>
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-4 col-sm-5 col-xs-12">
             <div class="well well-sm">
                 <div class="full-height">
                     <div class="text-center">
                         <label>Adding mode
-                            <input type="checkbox" id="addingMode" data-toggle="toggle">
+                            <input type="checkbox" id="addingMode" data-toggle="toggle" onchange="toggleAddingTooltip()">
                         </label>
+                        <p id="addingTooltip" class="hide">Click on map to add stations</p>
                     </div>
                     <table class="table">
                         <tbody id="stationList">
