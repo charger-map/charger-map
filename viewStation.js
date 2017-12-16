@@ -11,6 +11,8 @@ var photoRef = firebase.storage().ref('stations/');
 
 var timeFields = [];
 
+var uid;
+
 stationsRef.child(query.id).on('value', function(snapshot) {
     var data = snapshot.val();
     if (!data) {
@@ -52,7 +54,8 @@ var chargerRef = stationsRef.child(query.id).child('chargerData');
 var setChargerStatus = function(status, id) {
     var newState = {
         status: status,
-        time: status===0 ? -1 : Date.now()
+        time: status===0 ? -1 : Date.now(),
+        user: status===0 ? null : uid
     };
     chargerRef.child(id).update(newState);
 };
@@ -64,7 +67,7 @@ var getChargerRowNode = function(charger, id) {
         '    <td class="col-xs-4">' + getChargerName(charger.type) + '</td>\n' +
         '    <td class="col-xs-3">' + getChargerStatus(charger.status) + '</td>\n' +
         '    <td class="col-xs-3" name="chargeTime" data-time="' + charger.time + '">' + getChargerTime(charger.status, charger.time) + '</td>\n' +
-        '    <td class="col-xs-2">' + getChargerActionButton(charger.status, id) + '</td>\n' +
+        '    <td class="col-xs-2">' + getChargerActionButton(charger.status, charger.user, id) + '</td>\n' +
         '</tr>\n';
     return tr;
 };
@@ -89,12 +92,17 @@ var getChargerStatus = function(status) {
     }
 };
 
-var getChargerActionButton = function(status, id) {
+var getChargerActionButton = function(status, user, id) {
+    if (!uid) return '';
     switch (status) {
         case 0:
             return '<button type="button" class="btn btn-success btn-xs" onclick="setChargerStatus(1, ' + id + ')">Check in</button>';
         case 1:
-            return '<button type="button" class="btn btn-danger btn-xs" onclick="setChargerStatus(0, ' + id + ')">Check out</button>';
+            if (user === uid) {
+                return '<button type="button" class="btn btn-danger btn-xs" onclick="setChargerStatus(0, ' + id + ')">Check out</button>';
+            } else {
+                return ''
+            }
     }
 };
 
@@ -156,6 +164,7 @@ setInterval(updateTime, 1000);
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        uid = user.uid;
         document.getElementById('loginButton').style.display = 'none';
         document.getElementById('logoutButton').style.display = 'inline-block';
         document.getElementById('user').style.display = 'inline';

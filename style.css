@@ -4,6 +4,11 @@
 	overflow-y: auto;
 }
 
+#station-photo {
+    max-height: 60vh;
+    margin: 0 auto;
+}
+
 #page {
     position: relative;
     padding-bottom: 15px;
