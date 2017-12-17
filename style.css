@@ -16,7 +16,8 @@
 }
 
 footer {
-    background: #DDDDDD;
+    background: #067979;
+    color: #e7e7e7;
     position: absolute;
     bottom: 0;
     left: 15px;
@@ -50,6 +51,28 @@ textarea {
 
 .logo {
     padding: 5px;
+}
+
+/* colors */
+.navbar-default {
+    border-color: #067979;
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li > a:hover {
+    color: #067979;
+}
+
+.navbar-default .navbar-text {
+    color: #067979;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
+    color: #e7e7e7;
+    background-color: #067979;
 }
 
 /* loader */

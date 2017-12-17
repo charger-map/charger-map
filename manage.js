@@ -77,7 +77,7 @@ var getDetailTooltipString = function(station, id) {
         '<h3>' + station.name + ' <small>' + station.loc + '</small></h3>' +
         '<p>' + station.desc + '</p>' +
         '<p class="pull-right">' +
-        '<a class="btn btn-default btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
+        '<a class="btn btn-primary btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
         '</p></div>'
 };
 
