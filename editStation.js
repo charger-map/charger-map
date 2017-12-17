@@ -35,6 +35,8 @@ $(function() {
 var stationsRef = firebase.database().ref('stations/');
 var photoRef = firebase.storage().ref('stations/');
 
+var uid;
+
 var query = parseQueryString();
 
 var edit = typeof query.id !== 'undefined';
@@ -172,6 +174,7 @@ var submitChargers = function () {
 			}
 		);
     } else {
+        station.owner = uid;
         var newRef = stationsRef.push();
         newRef.set(station).then(
 			function() {
@@ -217,6 +220,7 @@ var uploadPhoto = function(target) {
 		);
 	} else {
 		doneLoading();
+        location.href = target;
 	}
 };
 
@@ -226,6 +230,7 @@ var newChargerData = function (type) {
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        uid = user.uid;
         document.getElementById('loginButton').style.display = 'none';
         document.getElementById('logoutButton').style.display = 'inline-block';
         document.getElementById('user').style.display = 'inline';
