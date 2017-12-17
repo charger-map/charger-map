@@ -77,7 +77,7 @@ var getDetailTooltipString = function(station, id) {
         '<h3>' + station.name + ' <small>' + station.loc + '</small></h3>' +
         '<p>' + station.desc + '</p>' +
         '<p class="pull-right">' +
-        '<a class="btn btn-warning btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
+        '<a class="btn btn-default btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
         '</p></div>'
 };
 
@@ -89,9 +89,11 @@ var getAddTooltipString = function(lat, lng) {
 
 var getStationListRow = function(id, station) {
     var tr = document.createElement('tr');
-    tr.innerHTML = '<td class="col-xs-10' + (station.deleted ? ' text-danger' : '') + '">' + station.name + '<br><small>' + station.loc + '</small></td>' +
+    tr.innerHTML = '<td class="col-xs-10">' + station.name + '<br><small>' + station.loc + '</small></td>' +
         '<td class="col-xs-1">' +
-        '<button type="button" class="btn btn-default" onclick="centerOn(\'' + id + '\')"><span class="glyphicon glyphicon-screenshot"></span></button>' +
+        '<a class="btn btn-default btn-sm" href="editStation.html?id=' + id +'""><span class="glyphicon glyphicon-pencil"></span></a>' +
+        '</td><td class="col-xs-1">' +
+        '<button type="button" class="btn btn-default btn-sm" onclick="centerOn(\'' + id + '\')"><span class="glyphicon glyphicon-screenshot"></span></button>' +
         '</td>';
     return tr;
 };

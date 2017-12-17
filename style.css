@@ -48,6 +48,10 @@ textarea {
     display: none;
 }
 
+.logo {
+    padding: 5px;
+}
+
 /* loader */
 .loader {
     border: 12px solid #dadada;
