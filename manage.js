@@ -42,7 +42,8 @@ function initMap() {
 var addMarker = function(id, station) {
     var marker = new google.maps.Marker({
         position: station.position,
-        map: map
+        map: map,
+        icon: getStationMarkerIcon(station)
     });
     var infowindow = new google.maps.InfoWindow({
         content: getDetailTooltipString(station, id)
@@ -64,6 +65,25 @@ var addMarker = function(id, station) {
 // var updateMarker = function (id, station) {
 //     addMarker(id, station);
 // };
+
+var getStationOccupied = function(station) {
+    const free = station.chargerData.reduce(function (a, v) {
+        return v.status == 1 ? a : a + 1;
+    }, 0);
+    const total = station.chargerData.length;
+    return {
+        free: free,
+        tot: total,
+        rate: free / total
+    };
+};
+
+var getStationMarkerIcon = function(station) {
+    const rate = getStationOccupied(station).rate;
+    if (rate == 0) return 'marker-red.png';
+    else if (rate <= 0.5) return 'marker-yellow.png';
+    else return 'marker-green.png';
+};
 
 var centerOn = function(id) {
     var marker = markers[id];
