@@ -94,7 +94,7 @@ var getDetailTooltipString = function(station, id) {
     const occ = getStationOccupied(station);
     return '<div style="">' +
         '<h3>' + station.name + ' <small>' + station.loc + '</small></h3>' +
-        '<p>' + station.desc + '</p>' +
+        '<p>' + station.shortDesc + '</p>' +
         '<p>' + occ.free + ' / ' + occ.tot + ' chargers free</p>' +
         '<p class="pull-right">' +
         '<a class="btn btn-primary btn-xs" href="viewStation.html?id=' + id +'">Details</a>' +

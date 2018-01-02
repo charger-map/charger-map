@@ -21,13 +21,18 @@ stationsRef.child(query.id).on('value', function(snapshot) {
         document.getElementById('stationName').innerHTML = data.name;
         document.getElementById('stationLoc').innerHTML = data.loc;
         document.getElementById('stationDesc').innerHTML = data.desc;
-        document.getElementById('openMon').innerHTML = data.days.mon;
-        document.getElementById('openTue').innerHTML = data.days.tue;
-        document.getElementById('openWed').innerHTML = data.days.wed;
-        document.getElementById('openThu').innerHTML = data.days.thu;
-        document.getElementById('openFri').innerHTML = data.days.fri;
-        document.getElementById('openSat').innerHTML = data.days.sat;
-        document.getElementById('openSun').innerHTML = data.days.sun;
+        if (data.nonstop) {
+            document.getElementById('openHoursTable').style.display = 'none';
+        } else {
+            document.getElementById('openNonStop').style.display = 'none';
+            document.getElementById('openMon').innerHTML = data.days.mon.f + ' - ' + data.days.mon.t;
+            document.getElementById('openTue').innerHTML = data.days.tue.f + ' - ' + data.days.tue.t;
+            document.getElementById('openWed').innerHTML = data.days.wed.f + ' - ' + data.days.wed.t;
+            document.getElementById('openThu').innerHTML = data.days.thu.f + ' - ' + data.days.thu.t;
+            document.getElementById('openFri').innerHTML = data.days.fri.f + ' - ' + data.days.fri.t;
+            document.getElementById('openSat').innerHTML = data.days.sat.f + ' - ' + data.days.sat.t;
+            document.getElementById('openSun').innerHTML = data.days.sun.f + ' - ' + data.days.sun.t;
+        }
 
         var table = document.getElementById('chargerTable');
         table.innerHTML = '';

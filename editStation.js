@@ -41,6 +41,9 @@ var query = parseQueryString();
 
 var edit = typeof query.id !== 'undefined';
 
+var nonstop = false;
+$('#customHours').bootstrapToggle();
+
 if (edit) {
     document.getElementById('title').innerHTML = 'Edit station';
     document.getElementById('nav-title').innerHTML = 'Edit station';
@@ -56,13 +59,28 @@ if (edit) {
             document.getElementById('stationLat').value = data.position.lat;
             document.getElementById('stationLng').value = data.position.lng;
             document.getElementById('stationDesc').value = data.desc;
-            document.getElementById('openMon').value = data.days.mon;
-            document.getElementById('openTue').value = data.days.tue;
-            document.getElementById('openWed').value = data.days.wed;
-            document.getElementById('openThu').value = data.days.thu;
-            document.getElementById('openFri').value = data.days.fri;
-            document.getElementById('openSat').value = data.days.sat;
-            document.getElementById('openSun').value = data.days.sun;
+            document.getElementById('stationShortDesc').value = data.shortDesc;
+            if (!data.nonstop) {
+                $('#customHours').bootstrapToggle('off');
+            } else {
+                $('#customHours').bootstrapToggle('on');
+            }
+            if (data.days) {
+                document.getElementById('openMonFrom').value = data.days.mon.f;
+                document.getElementById('openMonTo').value = data.days.mon.t;
+                document.getElementById('openTueFrom').value = data.days.tue.f;
+                document.getElementById('openTueTo').value = data.days.tue.t;
+                document.getElementById('openWedFrom').value = data.days.wed.f;
+                document.getElementById('openWedTo').value = data.days.wed.t;
+                document.getElementById('openThuFrom').value = data.days.thu.f;
+                document.getElementById('openThuTo').value = data.days.thu.t;
+                document.getElementById('openFriFrom').value = data.days.fri.f;
+                document.getElementById('openFriTo').value = data.days.fri.t;
+                document.getElementById('openSatFrom').value = data.days.sat.f;
+                document.getElementById('openSatTo').value = data.days.sat.t;
+                document.getElementById('openSunFrom').value = data.days.sun.f;
+                document.getElementById('openSunTo').value = data.days.sun.t;
+            }
             document.getElementById('charger1count').value = data.chargers.type1;
             document.getElementById('charger2count').value = data.chargers.type2;
             document.getElementById('charger3count').value = data.chargers.commando;
@@ -95,9 +113,47 @@ if (edit) {
     doneLoading();
 }
 
-var submitDetails = function () {
-	showLoading();
-    var station = {
+var toggleCustomHours = function () {
+    nonstop = $('#customHours').prop('checked');
+    setHoursEnabled(nonstop);
+};
+
+var setHoursEnabled = function (enabled) {
+    if (enabled) {
+        document.getElementById('openMonFrom').setAttribute('disabled', 'true');
+        document.getElementById('openMonTo').setAttribute('disabled', 'true');
+        document.getElementById('openTueFrom').setAttribute('disabled', 'true');
+        document.getElementById('openTueTo').setAttribute('disabled', 'true');
+        document.getElementById('openWedFrom').setAttribute('disabled', 'true');
+        document.getElementById('openWedTo').setAttribute('disabled', 'true');
+        document.getElementById('openThuFrom').setAttribute('disabled', 'true');
+        document.getElementById('openThuTo').setAttribute('disabled', 'true');
+        document.getElementById('openFriFrom').setAttribute('disabled', 'true');
+        document.getElementById('openFriTo').setAttribute('disabled', 'true');
+        document.getElementById('openSatFrom').setAttribute('disabled', 'true');
+        document.getElementById('openSatTo').setAttribute('disabled', 'true');
+        document.getElementById('openSunFrom').setAttribute('disabled', 'true');
+        document.getElementById('openSunTo').setAttribute('disabled', 'true');
+    } else {
+        document.getElementById('openMonFrom').removeAttribute('disabled');
+        document.getElementById('openMonTo').removeAttribute('disabled');
+        document.getElementById('openTueFrom').removeAttribute('disabled');
+        document.getElementById('openTueTo').removeAttribute('disabled');
+        document.getElementById('openWedFrom').removeAttribute('disabled');
+        document.getElementById('openWedTo').removeAttribute('disabled');
+        document.getElementById('openThuFrom').removeAttribute('disabled');
+        document.getElementById('openThuTo').removeAttribute('disabled');
+        document.getElementById('openFriFrom').removeAttribute('disabled');
+        document.getElementById('openFriTo').removeAttribute('disabled');
+        document.getElementById('openSatFrom').removeAttribute('disabled');
+        document.getElementById('openSatTo').removeAttribute('disabled');
+        document.getElementById('openSunFrom').removeAttribute('disabled');
+        document.getElementById('openSunTo').removeAttribute('disabled');
+    }
+};
+
+var getStationObject = function () {
+    return {
         name: document.getElementById('stationName').value,
         loc: document.getElementById('stationLoc').value,
         position: {
@@ -105,16 +161,44 @@ var submitDetails = function () {
             lng: parseFloat(document.getElementById('stationLng').value)
         },
         desc: document.getElementById('stationDesc').value,
+        shortDesc: document.getElementById('stationShortDesc').value,
+        nonstop: nonstop,
         days: {
-            mon: document.getElementById('openMon').value,
-            tue: document.getElementById('openTue').value,
-            wed: document.getElementById('openWed').value,
-            thu: document.getElementById('openThu').value,
-            fri: document.getElementById('openFri').value,
-            sat: document.getElementById('openSat').value,
-            sun: document.getElementById('openSun').value
+            mon: {
+                f: document.getElementById('openMonFrom').value,
+                t: document.getElementById('openMonTo').value
+            },
+            tue: {
+                f: document.getElementById('openTueFrom').value,
+                t: document.getElementById('openTueTo').value
+            },
+            wed: {
+                f: document.getElementById('openWedFrom').value,
+                t: document.getElementById('openWedTo').value
+            },
+            thu: {
+                f: document.getElementById('openThuFrom').value,
+                t: document.getElementById('openThuTo').value
+            },
+            fri: {
+                f: document.getElementById('openFriFrom').value,
+                t: document.getElementById('openFriTo').value
+            },
+            sat: {
+                f: document.getElementById('openSatFrom').value,
+                t: document.getElementById('openSatTo').value
+            },
+            sun: {
+                f: document.getElementById('openSunFrom').value,
+                t: document.getElementById('openSunTo').value
+            }
         }
     };
+};
+
+var submitDetails = function () {
+	showLoading();
+    var station = getStationObject();
     stationsRef.child(query.id).update(station).then(
 		function() {
 			uploadPhoto('#');
@@ -127,29 +211,12 @@ var submitDetails = function () {
 
 var submitChargers = function () {
 	showLoading();
-    var station = {
-        name: document.getElementById('stationName').value,
-        loc: document.getElementById('stationLoc').value,
-        position: {
-            lat: parseFloat(document.getElementById('stationLat').value),
-            lng: parseFloat(document.getElementById('stationLng').value)
-        },
-        desc: document.getElementById('stationDesc').value,
-        days: {
-            mon: document.getElementById('openMon').value,
-            tue: document.getElementById('openTue').value,
-            wed: document.getElementById('openWed').value,
-            thu: document.getElementById('openThu').value,
-            fri: document.getElementById('openFri').value,
-            sat: document.getElementById('openSat').value,
-            sun: document.getElementById('openSun').value
-        },
-        chargers: {
-            type1: document.getElementById('charger1count').value,
-            type2: document.getElementById('charger2count').value,
-            commando: document.getElementById('charger3count').value
-        }
-    };
+    var station = getStationObject();
+    station.chargers = {
+        type1: document.getElementById('charger1count').value,
+        type2: document.getElementById('charger2count').value,
+        commando: document.getElementById('charger3count').value
+    }
     var chargerData = [];
     for (var i = 1; i <= station.chargers.type1; i++) {
         chargerData.push(newChargerData('type1'));

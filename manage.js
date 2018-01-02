@@ -95,7 +95,7 @@ var centerOn = function(id) {
 var getDetailTooltipString = function(station, id) {
     return '<div style="">' +
         '<h3>' + station.name + ' <small>' + station.loc + '</small></h3>' +
-        '<p>' + station.desc + '</p>' +
+        '<p>' + station.shortDesc + '</p>' +
         '<p class="pull-right">' +
         '<a class="btn btn-primary btn-xs" href="editStation.html?id=' + id +'">Edit</a> ' +
         '</p></div>'
