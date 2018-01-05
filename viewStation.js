@@ -21,10 +21,10 @@ stationsRef.child(query.id).on('value', function(snapshot) {
         document.getElementById('stationName').innerHTML = data.name;
         document.getElementById('stationLoc').innerHTML = data.loc;
         document.getElementById('stationDesc').innerHTML = data.desc;
+        setOpenText(data);
         if (data.nonstop) {
             document.getElementById('openHoursTable').style.display = 'none';
         } else {
-            document.getElementById('openNonStop').style.display = 'none';
             document.getElementById('openMon').innerHTML = data.days.mon.f + ' - ' + data.days.mon.t;
             document.getElementById('openTue').innerHTML = data.days.tue.f + ' - ' + data.days.tue.t;
             document.getElementById('openWed').innerHTML = data.days.wed.f + ' - ' + data.days.wed.t;
@@ -157,6 +157,53 @@ var timeSince = function(date) {
     }
 
     return interval + ' ' + intervalType;
+};
+
+var getTodayOpenHours = function (days) {
+    var d = new Date();
+    switch (d.getDay()) {
+        case 1:
+            return days.mon;
+        case 2:
+            return days.tue;
+        case 3:
+            return days.wed;
+        case 4:
+            return days.thu;
+        case 5:
+            return days.fri;
+        case 6:
+            return days.sat;
+        case 0:
+            return days.sun;
+    }
+};
+
+var setOpenText = function (station) {
+    var ele = document.getElementById('openNonStop');
+
+    if (station.nonstop) {
+        ele.innerHTML = 'Open nonstop';
+        ele.classList.add('text-success');
+    } else {
+        var today = getTodayOpenHours(station.days);
+        var f = new Date(); f.setHours(today.f.split(':')[0]); f.setMinutes(today.f.split(':')[1]);
+        var t = new Date(); t.setHours(today.t.split(':')[0]); t.setMinutes(today.t.split(':')[1]);
+        var now = new Date();
+
+        if (now < f) {
+            var min = f.getMinutes();
+            ele.innerHTML = 'Opens at ' + f.getHours() + ':' + (min < 10 ? min + '0' : min);
+            ele.classList.add('text-warning');
+        } else if (now < t) {
+            var min = t.getMinutes();
+            ele.innerHTML = 'Open until ' + t.getHours() + ':' + (min < 10 ? min + '0' : min);
+            ele.classList.add('text-success');
+        } else {
+            ele.innerHTML = 'Closed';
+            ele.classList.add('text-danger')
+        }
+    }
 };
 
 var updateTime = function() {
