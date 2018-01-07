@@ -28,7 +28,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Map</a></li>
                     <li class="ownerControls hide"><a href="manage.html">Manage stations</a></li>
-                    <li class="active ownerControls hide"><a href="#" id="nav-title">Add station</a></li>
+                    <!--<li class="active ownerControls hide"><a href="#" id="nav-title">Add station</a></li>-->
                 </ul>
                 <div class="navbar-right">
                     <span class="navbar-text display-none" id="user"></span>
@@ -49,25 +49,25 @@
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Name</label>
+                        <label class="col-md-4 col-xs-5 control-label" for="stationName">Name</label>
                         <div class="col-md-8 col-xs-7">
                             <input class="form-control" name="stationName" id="stationName" placeholder="Powerpark">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Location</label>
+                        <label class="col-md-4 col-xs-5 control-label" for="stationLoc">Location</label>
                         <div class="col-md-8 col-xs-7">
                             <input class="form-control" name="stationLoc" id="stationLoc" placeholder="Uluru">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Latitude</label>
+                        <label class="col-md-4 col-xs-5 control-label" for="stationLat">Latitude</label>
                         <div class="col-md-8 col-xs-7">
                             <input class="form-control" name="stationLat" id="stationLat" placeholder="-25.363">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Longitude</label>
+                        <label class="col-md-4 col-xs-5 control-label" for="stationLng">Longitude</label>
                         <div class="col-md-8 col-xs-7">
                             <input class="form-control" name="stationLng" id="stationLng" placeholder="131.044">
                         </div>
@@ -75,13 +75,13 @@
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Short description</label>
+                        <label class="col-md-4 col-xs-5 control-label" for="stationShortDesc">Short description</label>
                         <div class="col-md-8 col-xs-7">
                             <input class="form-control" name="stationLng" id="stationShortDesc" placeholder="The best charging station in 100 miles!">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label">Full description</label>
+                        <label class="col-md-4 col-xs-5 control-label" for="stationDesc">Full description</label>
                         <div class="col-md-8 col-xs-7">
                             <textarea class="form-control" name="stationDesc" id="stationDesc" rows="5" placeholder="The best charging station in 100 miles!"></textarea>
                         </div>
@@ -91,13 +91,13 @@
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-6 control-label">Opening hours:</label>
+                        <label class="col-md-4 col-xs-6 control-label" for="customHours">Opening hours:</label>
                         <div class="col-md-8 col-xs-5">
                             <input type="checkbox" id="customHours" data-toggle="toggle" data-off="Custom" data-on="Non-stop" onchange="toggleCustomHours()" data-width="100">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-4 control-label">Monday</label>
+                        <label class="col-md-4 col-xs-4 control-label" for="openMonFrom">Monday</label>
                         <div class="col-md-8 col-xs-8">
                             <div class="input-group">
                                 <input type="time" class="form-control" name="openMon" id="openMonFrom" placeholder="8:00">
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-4 control-label">Tuesday</label>
+                        <label class="col-md-4 col-xs-4 control-label" for="openTueFrom">Tuesday</label>
                         <div class="col-md-8 col-xs-8">
                             <div class="input-group">
                                 <input type="time" class="form-control" name="openMon" id="openTueFrom" placeholder="8:00">
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-4 control-label">Wednesday</label>
+                        <label class="col-md-4 col-xs-4 control-label" for="openWedFrom">Wednesday</label>
                         <div class="col-md-8 col-xs-8">
                             <div class="input-group">
                                 <input type="time" class="form-control" name="openMon" id="openWedFrom" placeholder="8:00">
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-4 control-label">Thursday</label>
+                        <label class="col-md-4 col-xs-4 control-label" for="openThuFrom">Thursday</label>
                         <div class="col-md-8 col-xs-8">
                             <div class="input-group">
                                 <input type="time" class="form-control" name="openMon" id="openThuFrom" placeholder="8:00">
@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-4 control-label">Friday</label>
+                        <label class="col-md-4 col-xs-4 control-label" for="openFriFrom">Friday</label>
                         <div class="col-md-8 col-xs-8">
                             <div class="input-group">
                                 <input type="time" class="form-control" name="openMon" id="openFriFrom" placeholder="8:00">
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-4 control-label">Saturday</label>
+                        <label class="col-md-4 col-xs-4 control-label" for="openSatFrom">Saturday</label>
                         <div class="col-md-8 col-xs-8">
                             <div class="input-group">
                                 <input type="time" class="form-control" name="openMon" id="openSatFrom" placeholder="8:00">
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-4 control-label">Sunday</label>
+                        <label class="col-md-4 col-xs-4 control-label" for="openSunFrom">Sunday</label>
                         <div class="col-md-8 col-xs-8">
                             <div class="input-group">
                                 <input type="time" class="form-control" name="openMon" id="openSunFrom" placeholder="8:00">
@@ -206,7 +206,7 @@
                     <div class="row charger-group">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-md-6 col-xs-7 control-label">Quick Charge (CHAdeMO)</label>
+                                <label class="col-md-6 col-xs-7 control-label" for="CHAdeMO-count">Quick Charge (CHAdeMO)</label>
                                 <div class="col-md-6 col-xs-5">
                                     <input type="number" class="form-control" name="CHAdeMO-count" id="CHAdeMO-count" placeholder="2">
                                 </div>
@@ -214,7 +214,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 col-xs-7 control-label"><small>Price</small></label>
+                                <label class="col-sm-3 col-xs-7 control-label" for="CHAdeMO-price"><small>Price</small></label>
                                 <div class="col-sm-9 col-xs-5">
                                     <input class="form-control" name="CHAdeMO-price" id="CHAdeMO-price" placeholder="1 &euro;/min">
                                 </div>
@@ -224,7 +224,7 @@
                     <div class="row charger-group">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-md-6 col-xs-7 control-label">Quick Charge (CCS)</label>
+                                <label class="col-md-6 col-xs-7 control-label" for="CCS-count">Quick Charge (CCS)</label>
                                 <div class="col-md-6 col-xs-5">
                                     <input type="number" class="form-control" name="CCS-count" id="CCS-count" placeholder="2">
                                 </div>
@@ -232,7 +232,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 col-xs-7 control-label"><small>Price</small></label>
+                                <label class="col-sm-3 col-xs-7 control-label" for="CCS-price"><small>Price</small></label>
                                 <div class="col-sm-9 col-xs-5">
                                     <input class="form-control" name="CCS-price" id="CCS-price" placeholder="1 &euro;/min">
                                 </div>
@@ -242,7 +242,7 @@
                     <div class="row charger-group">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-md-6 col-xs-7 control-label">Tesla Supercharger</label>
+                                <label class="col-md-6 col-xs-7 control-label" for="Supercharger-count">Tesla Supercharger</label>
                                 <div class="col-md-6 col-xs-5">
                                     <input type="number" class="form-control" name="Supercharger-count" id="Supercharger-count" placeholder="1">
                                 </div>
@@ -250,7 +250,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 col-xs-7 control-label"><small>Price</small></label>
+                                <label class="col-sm-3 col-xs-7 control-label" for="Supercharger-price"><small>Price</small></label>
                                 <div class="col-sm-9 col-xs-5">
                                     <input class="form-control" name="Supercharger-price" id="Supercharger-price" placeholder="1 &euro;/min">
                                 </div>
@@ -260,7 +260,7 @@
                     <div class="row charger-group">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-md-6 col-xs-7 control-label">Mennekes (Type 2)</label>
+                                <label class="col-md-6 col-xs-7 control-label" for="Mennekes-count">Mennekes (Type 2)</label>
                                 <div class="col-md-6 col-xs-5">
                                     <input type="number" class="form-control" name="Mennekes-count" id="Mennekes-count" placeholder="0">
                                 </div>
@@ -268,7 +268,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 col-xs-7 control-label"><small>Price</small></label>
+                                <label class="col-sm-3 col-xs-7 control-label" for="Mennekes-price"><small>Price</small></label>
                                 <div class="col-sm-9 col-xs-5">
                                     <input class="form-control" name="Mennekes-price" id="Mennekes-price" placeholder="1 &euro;/min">
                                 </div>
@@ -278,7 +278,7 @@
                     <div class="row charger-group">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-md-6 col-xs-7 control-label">CEE red</label>
+                                <label class="col-md-6 col-xs-7 control-label" for="CEE-red-count">CEE red</label>
                                 <div class="col-md-6 col-xs-5">
                                     <input type="number" class="form-control" name="CEE-red-count" id="CEE-red-count" placeholder="3">
                                 </div>
@@ -286,7 +286,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 col-xs-7 control-label"><small>Price</small></label>
+                                <label class="col-sm-3 col-xs-7 control-label" for="CEE-red-price"><small>Price</small></label>
                                 <div class="col-sm-9 col-xs-5">
                                     <input class="form-control" name="CEE-red-price" id="CEE-red-price" placeholder="1 &euro;/min">
                                 </div>
@@ -296,7 +296,7 @@
                     <div class="row charger-group">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-md-6 col-xs-7 control-label">Schuko (Type 3)</label>
+                                <label class="col-md-6 col-xs-7 control-label" for="Schuko-count">Schuko (Type 3)</label>
                                 <div class="col-md-6 col-xs-5">
                                     <input type="number" class="form-control" name="Schuko-count" id="Schuko-count" placeholder="1">
                                 </div>
@@ -304,7 +304,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label class="col-sm-3 col-xs-7 control-label"><small>Price</small></label>
+                                <label class="col-sm-3 col-xs-7 control-label" for="Schuko-price"><small>Price</small></label>
                                 <div class="col-sm-9 col-xs-5">
                                     <input class="form-control" name="Schuko-price" id="Schuko-price" placeholder="1 &euro;/min">
                                 </div>

@@ -46,7 +46,7 @@ $('#customHours').bootstrapToggle();
 
 if (edit) {
     document.getElementById('title').innerHTML = 'Edit station';
-    document.getElementById('nav-title').innerHTML = 'Edit station';
+    // document.getElementById('nav-title').innerHTML = 'Edit station';
     document.getElementById('submitAdd').style.display = 'none';
 
     stationsRef.child(query.id).once('value', function(snapshot) {
