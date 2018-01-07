@@ -60,7 +60,6 @@ if (edit) {
             document.getElementById('stationLng').value = data.position.lng;
             document.getElementById('stationDesc').value = data.desc;
             if (data.shortDesc) {
-                console.log(data.shortDesc, typeof data.shortDesc)
                 document.getElementById('stationShortDesc').value = data.shortDesc;
             }
             if (data.amenities) {

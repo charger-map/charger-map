@@ -111,7 +111,7 @@ var getStationListRow = function(id, station) {
     var tr = document.createElement('tr');
     tr.innerHTML = '<td class="col-xs-10">' + station.name + '<br><small>' + station.loc + '</small></td>' +
         '<td class="col-xs-1">' +
-        '<a class="btn btn-default btn-sm" href="editStation.html?id=' + id +'""><span class="glyphicon glyphicon-pencil"></span></a>' +
+        '<a class="btn btn-default btn-sm" href="editStation.html?id=' + id +'"><span class="glyphicon glyphicon-pencil"></span></a>' +
         '</td><td class="col-xs-1">' +
         '<button type="button" class="btn btn-default btn-sm" onclick="centerOn(\'' + id + '\')"><span class="glyphicon glyphicon-screenshot"></span></button>' +
         '</td>';

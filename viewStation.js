@@ -47,7 +47,7 @@ stationsRef.child(query.id).on('value', function(snapshot) {
             table.appendChild(getChargerRowNode(charger, id, state));
         });
 
-        timeFields = document.getElementsByName('chargeTime');
+        timeFields = document.getElementsByClassName('chargeTime');
 
 		photoRef.child(query.id).getDownloadURL().then(
 			function(url) {
@@ -79,7 +79,7 @@ var getChargerRowNode = function(charger, id, stationState) {
         '<div class="col-xs-12"><h4>' + charger.type + '</h4></div>' +
         '<div class="col-xs-6 col-md-4">Price: ' + charger.price + '</div>' +
         '<div class="col-xs-6 col-md-4">' + getChargerStatus(charger.status) + '' +
-        '<span name="chargeTime" data-time="' + charger.time + '">' + getChargerTime(charger.status, charger.time) + '</span></div>' +
+        '<span class="chargeTime" data-time="' + charger.time + '">' + getChargerTime(charger.status, charger.time) + '</span></div>' +
         '<div class="col-xs-12 col-md-4 text-right charger-table-btn-holder">' + getChargerActionButton(charger.status, charger.user, id, stationState) + '</div>' +
         '</div>';
     tr.classList.add('charger-table');
@@ -99,8 +99,9 @@ var getChargerActionButton = function(status, user, id, stationState) {
     if (!uid) return '';
     switch (status) {
         case 0:
-            return '<button type="button" class="btn btn-success hidden-xs hidden-sm" onclick="setChargerStatus(1, ' + id + ')"' + (stationState === 2 ? ' disabled' : '') + '>Check in</button>' +
-                '<button type="button" class="btn btn-success btn-block hidden-md hidden-lg" onclick="setChargerStatus(1, ' + id + ')"\' + (stationState === 2 ? \' disabled\' : \'\') + \'>Check in</button>';
+            var disabledOnClosed = stationState === 2 ? ' disabled' : '';
+            return '<button type="button" class="btn btn-success hidden-xs hidden-sm" onclick="setChargerStatus(1, ' + id + ')"' + disabledOnClosed + '>Check in</button>' +
+                '<button type="button" class="btn btn-success btn-block hidden-md hidden-lg" onclick="setChargerStatus(1, ' + id + ')"' + disabledOnClosed + '>Check in</button>';
         case 1:
             if (user === uid) {
                 return '<button type="button" class="btn btn-danger hidden-xs hidden-sm" onclick="setChargerStatus(0, ' + id + ')">Check out</button>' +
@@ -221,10 +222,11 @@ var setOpenText = function (station) {
 };
 
 var updateTime = function() {
-    timeFields.forEach(function(tf) {
+    for (var i = 0; i < timeFields.length; i++) {
+        var tf = timeFields.item(i);
         var time = tf.getAttribute('data-time');
         if (time > 0) tf.innerHTML = getChargerTime(-1, parseInt(time));
-    });
+    }
 };
 setInterval(updateTime, 1000);
 
