@@ -81,9 +81,19 @@ if (edit) {
                 document.getElementById('openSunFrom').value = data.days.sun.f;
                 document.getElementById('openSunTo').value = data.days.sun.t;
             }
-            document.getElementById('charger1count').value = data.chargers.type1;
-            document.getElementById('charger2count').value = data.chargers.type2;
-            document.getElementById('charger3count').value = data.chargers.commando;
+
+            document.getElementById('CHAdeMO-count').value = data.chargers['Quick Charge (CHAdeMO)'].count;
+            document.getElementById('CHAdeMO-price').value = data.chargers['Quick Charge (CHAdeMO)'].price;
+            document.getElementById('CCS-count').value = data.chargers['Quick Charge (CCS)'].count;
+            document.getElementById('CCS-price').value = data.chargers['Quick Charge (CCS)'].price;
+            document.getElementById('Supercharger-count').value = data.chargers['Tesla Supercharger'].count;
+            document.getElementById('Supercharger-price').value = data.chargers['Tesla Supercharger'].price;
+            document.getElementById('Mennekes-count').value = data.chargers['Mennekes (Type 2)'].count;
+            document.getElementById('Mennekes-price').value = data.chargers['Mennekes (Type 2)'].price;
+            document.getElementById('CEE-red-count').value = data.chargers['CEE red'].count;
+            document.getElementById('CEE-red-price').value = data.chargers['CEE red'].price;
+            document.getElementById('Schuko-count').value = data.chargers['Schuko (Type 3)'].count;
+            document.getElementById('Schuko-price').value = data.chargers['Schuko (Type 3)'].price;
 
 			photoRef.child(query.id).getDownloadURL().then(
 				function(url) {
@@ -213,19 +223,38 @@ var submitChargers = function () {
 	showLoading();
     var station = getStationObject();
     station.chargers = {
-        type1: document.getElementById('charger1count').value,
-        type2: document.getElementById('charger2count').value,
-        commando: document.getElementById('charger3count').value
-    }
+        'Quick Charge (CHAdeMO)': {
+            count: document.getElementById('CHAdeMO-count').value,
+            price: document.getElementById('CHAdeMO-price').value
+        },
+        'Quick Charge (CCS)': {
+            count: document.getElementById('CCS-count').value,
+            price: document.getElementById('CCS-price').value
+        },
+        'Tesla Supercharger': {
+            count: document.getElementById('Supercharger-count').value,
+            price: document.getElementById('Supercharger-price').value
+        },
+        'Mennekes (Type 2)' : {
+            count: document.getElementById('Mennekes-count').value,
+            price: document.getElementById('Mennekes-price').value
+        },
+        'CEE red' : {
+            count: document.getElementById('CEE-red-count').value,
+            price: document.getElementById('CEE-red-price').value
+        },
+        'Schuko (Type 3)': {
+            count: document.getElementById('Schuko-count').value,
+            price: document.getElementById('Schuko-price').value
+        }
+    };
     var chargerData = [];
-    for (var i = 1; i <= station.chargers.type1; i++) {
-        chargerData.push(newChargerData('type1'));
-    }
-    for (i = 1; i <= station.chargers.type2; i++) {
-        chargerData.push(newChargerData('type2'));
-    }
-    for (i = 1; i <= station.chargers.commando; i++) {
-        chargerData.push(newChargerData('commando'));
+    for (var type in station.chargers) {
+        if (station.chargers.hasOwnProperty(type)) {
+            for (var i = 1; i<= station.chargers[type].count; i++) {
+                chargerData.push(newChargerData(type, station.chargers[type].price));
+            }
+        }
     }
     station.chargerData = chargerData;
 
@@ -291,8 +320,8 @@ var uploadPhoto = function(target) {
 	}
 };
 
-var newChargerData = function (type) {
-    return {type: type, status: 0, time: -1};
+var newChargerData = function (type, price) {
+    return {type: type, status: 0, time: -1, price: price};
 };
 
 firebase.auth().onAuthStateChanged(function(user) {

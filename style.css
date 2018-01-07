@@ -56,6 +56,48 @@ textarea {
     padding: 5px;
 }
 
+/* edit chargers */
+
+.charger-group {
+    margin-bottom: 15px;
+}
+
+.charger-group>div>.form-group {
+    margin-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+    .charger-group {
+        margin-bottom: 0px;
+    }
+
+    .charger-group>div>.form-group {
+        margin-bottom: 15px;
+    }
+}
+
+/* view station charger table */
+
+.charger-table {
+    border-top: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.charger-table:first-child {
+    border-top: 0px;
+}
+
+.charger-table-btn-holder {
+    padding-top: 5px;
+}
+
+/* fix footer spacing */
+@media (min-width: 768px) {
+    #chargerTable {
+        margin-bottom: 10px;
+    }
+}
+
 /* colors */
 .navbar-default {
     border-color: #067979;

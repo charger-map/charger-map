@@ -72,26 +72,17 @@ var setChargerStatus = function(status, id) {
 };
 
 var getChargerRowNode = function(charger, id, stationState) {
-    var tr = document.createElement('tr');
+    var tr = document.createElement('div');
 
-    tr.innerHTML = '<tr>\n' +
-        '    <td class="col-xs-4">' + getChargerName(charger.type) + '</td>\n' +
-        '    <td class="col-xs-3">' + getChargerStatus(charger.status) + '</td>\n' +
-        '    <td class="col-xs-3" name="chargeTime" data-time="' + charger.time + '">' + getChargerTime(charger.status, charger.time) + '</td>\n' +
-        '    <td class="col-xs-2">' + getChargerActionButton(charger.status, charger.user, id, stationState) + '</td>\n' +
-        '</tr>\n';
+    tr.innerHTML = '<div class="row">' +
+        '<div class="col-xs-12"><h4>' + charger.type + '</h4></div>' +
+        '<div class="col-xs-6 col-md-4">Price: ' + charger.price + '</div>' +
+        '<div class="col-xs-6 col-md-4">' + getChargerStatus(charger.status) + '' +
+        '<span name="chargeTime" data-time="' + charger.time + '">' + getChargerTime(charger.status, charger.time) + '</span></div>' +
+        '<div class="col-xs-12 col-md-4 text-right charger-table-btn-holder">' + getChargerActionButton(charger.status, charger.user, id, stationState) + '</div>' +
+        '</div>';
+    tr.classList.add('charger-table');
     return tr;
-};
-
-var getChargerName = function(type) {
-    switch (type) {
-        case 'type1':
-            return 'Type 1';
-        case 'type2':
-            return 'Type 2';
-        case 'commando':
-            return 'Commando';
-    }
 };
 
 var getChargerStatus = function(status) {
@@ -107,10 +98,12 @@ var getChargerActionButton = function(status, user, id, stationState) {
     if (!uid) return '';
     switch (status) {
         case 0:
-            return '<button type="button" class="btn btn-success btn-xs" onclick="setChargerStatus(1, ' + id + ')"' + (stationState === 2 ? ' disabled' : '') + '>Check in</button>';
+            return '<button type="button" class="btn btn-success hidden-xs hidden-sm" onclick="setChargerStatus(1, ' + id + ')"' + (stationState === 2 ? ' disabled' : '') + '>Check in</button>' +
+                '<button type="button" class="btn btn-success btn-block hidden-md hidden-lg" onclick="setChargerStatus(1, ' + id + ')"\' + (stationState === 2 ? \' disabled\' : \'\') + \'>Check in</button>';
         case 1:
             if (user === uid) {
-                return '<button type="button" class="btn btn-danger btn-xs" onclick="setChargerStatus(0, ' + id + ')">Check out</button>';
+                return '<button type="button" class="btn btn-danger hidden-xs hidden-sm" onclick="setChargerStatus(0, ' + id + ')">Check out</button>' +
+                    '<button type="button" class="btn btn-danger btn-block hidden-md hidden-lg" onclick="setChargerStatus(0, ' + id + ')">Check out</button>';
             } else {
                 return ''
             }
@@ -118,8 +111,8 @@ var getChargerActionButton = function(status, user, id, stationState) {
 };
 
 var getChargerTime = function(status, time) {
-    if (status === 0 || time < 0) return '-';
-    else return timeSince(time);
+    if (status === 0 || time < 0) return '';
+    else return ' (' + timeSince(time) + ')';
 };
 
 var timeSince = function(date) {
@@ -144,21 +137,21 @@ var timeSince = function(date) {
             } else {
                 interval = Math.floor(seconds / 3600);
                 if (interval >= 1) {
-                    intervalType = "hour";
+                    intervalType = 'h';
                 } else {
                     interval = Math.floor(seconds / 60);
                     if (interval >= 1) {
-                        intervalType = "minute";
+                        intervalType = 'm';
                     } else {
                         interval = seconds;
-                        intervalType = "second";
+                        intervalType = 's';
                     }
                 }
             }
         }
     }
 
-    if (interval > 1 || interval === 0) {
+    if ((interval > 1 || interval === 0) && intervalType.length > 1) {
         intervalType += 's';
     }
 
@@ -219,7 +212,7 @@ var setOpenText = function (station) {
 var updateTime = function() {
     timeFields.forEach(function(tf) {
         var time = tf.getAttribute('data-time');
-        if (time > 0) tf.innerHTML = timeSince(parseInt(time));
+        if (time > 0) tf.innerHTML = getChargerTime(-1, parseInt(time));
     });
 };
 setInterval(updateTime, 1000);
