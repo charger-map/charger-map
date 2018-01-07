@@ -32,6 +32,10 @@ $(function() {
 
 });
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
 var stationsRef = firebase.database().ref('stations/');
 var photoRef = firebase.storage().ref('stations/');
 

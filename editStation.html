@@ -80,15 +80,17 @@
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="col-md-4 col-xs-5 control-label" for="stationShortDesc">Short description</label>
+                        <label class="col-md-4 col-xs-5 control-label" for="stationShortDesc">Tooltip description</label>
                         <div class="col-md-8 col-xs-7">
-                            <input class="form-control" name="stationLng" id="stationShortDesc" placeholder="The best charging station in 100 miles!">
+                            <input class="form-control" name="stationLng" id="stationShortDesc" placeholder="The best charging station in 100 miles!"
+                                   title="Short description displayed in the map tooltips" data-toggle="tooltip">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 col-xs-5 control-label" for="stationDesc">Full description</label>
                         <div class="col-md-8 col-xs-7">
-                            <textarea class="form-control" name="stationDesc" id="stationDesc" rows="5" placeholder="The best charging station in 100 miles!"></textarea>
+                            <textarea class="form-control" name="stationDesc" id="stationDesc" rows="5" placeholder="The best charging station in 100 miles!"
+                                      title="Full description displayed on the station page" data-toggle="tooltip"></textarea>
                         </div>
                     </div>
                 </div>
