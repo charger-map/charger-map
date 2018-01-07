@@ -21,7 +21,7 @@ stationsRef.child(query.id).on('value', function(snapshot) {
         document.getElementById('stationName').innerHTML = data.name;
         document.getElementById('stationLoc').innerHTML = data.loc;
         document.getElementById('stationDesc').innerHTML = data.desc;
-        setOpenText(data);
+        var state = setOpenText(data);
         if (data.nonstop) {
             document.getElementById('openMon').innerHTML = 'Nonstop';
             document.getElementById('openTue').innerHTML = 'Nonstop';
@@ -43,7 +43,7 @@ stationsRef.child(query.id).on('value', function(snapshot) {
         var table = document.getElementById('chargerTable');
         table.innerHTML = '';
         data.chargerData.forEach(function(charger, id) {
-            table.appendChild(getChargerRowNode(charger, id));
+            table.appendChild(getChargerRowNode(charger, id, state));
         });
 
         timeFields = document.getElementsByName('chargeTime');
@@ -71,14 +71,14 @@ var setChargerStatus = function(status, id) {
     chargerRef.child(id).update(newState);
 };
 
-var getChargerRowNode = function(charger, id) {
+var getChargerRowNode = function(charger, id, stationState) {
     var tr = document.createElement('tr');
 
     tr.innerHTML = '<tr>\n' +
         '    <td class="col-xs-4">' + getChargerName(charger.type) + '</td>\n' +
         '    <td class="col-xs-3">' + getChargerStatus(charger.status) + '</td>\n' +
         '    <td class="col-xs-3" name="chargeTime" data-time="' + charger.time + '">' + getChargerTime(charger.status, charger.time) + '</td>\n' +
-        '    <td class="col-xs-2">' + getChargerActionButton(charger.status, charger.user, id) + '</td>\n' +
+        '    <td class="col-xs-2">' + getChargerActionButton(charger.status, charger.user, id, stationState) + '</td>\n' +
         '</tr>\n';
     return tr;
 };
@@ -103,11 +103,11 @@ var getChargerStatus = function(status) {
     }
 };
 
-var getChargerActionButton = function(status, user, id) {
+var getChargerActionButton = function(status, user, id, stationState) {
     if (!uid) return '';
     switch (status) {
         case 0:
-            return '<button type="button" class="btn btn-success btn-xs" onclick="setChargerStatus(1, ' + id + ')">Check in</button>';
+            return '<button type="button" class="btn btn-success btn-xs" onclick="setChargerStatus(1, ' + id + ')"' + (stationState === 2 ? ' disabled' : '') + '>Check in</button>';
         case 1:
             if (user === uid) {
                 return '<button type="button" class="btn btn-danger btn-xs" onclick="setChargerStatus(0, ' + id + ')">Check out</button>';
@@ -191,6 +191,7 @@ var setOpenText = function (station) {
     if (station.nonstop) {
         ele.innerHTML = 'Open nonstop';
         ele.classList.add('text-success');
+        return 0;
     } else {
         var today = getTodayOpenHours(station.days);
         var f = new Date(); f.setHours(today.f.split(':')[0]); f.setMinutes(today.f.split(':')[1]);
@@ -201,13 +202,16 @@ var setOpenText = function (station) {
             var min = f.getMinutes();
             ele.innerHTML = 'Opens at ' + f.getHours() + ':' + (min < 10 ? min + '0' : min);
             ele.classList.add('text-warning');
+            return 1;
         } else if (now < t) {
             var min = t.getMinutes();
             ele.innerHTML = 'Open until ' + t.getHours() + ':' + (min < 10 ? min + '0' : min);
             ele.classList.add('text-success');
+            return 0;
         } else {
             ele.innerHTML = 'Closed';
-            ele.classList.add('text-danger')
+            ele.classList.add('text-danger');
+            return 2;
         }
     }
 };
