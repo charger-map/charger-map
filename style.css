@@ -184,6 +184,10 @@ textarea {
     background-color: #C25A00;
 }
 
+.form-control[readonly] {
+    background-color: #ffffff;
+}
+
 /* muti heading 1 */
 
 .multih1 {
