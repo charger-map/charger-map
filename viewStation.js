@@ -117,11 +117,13 @@ var getChargerTime = function(status, time) {
 };
 
 var showAmenityLabels = function (amenities) {
-    if (amenities.parking) document.getElementById('hasParking').classList.remove('hidden');
-    if (amenities.hotel) document.getElementById('hasHotel').classList.remove('hidden');
-    if (amenities.freeCharge) document.getElementById('hasFreeCharge').classList.remove('hidden');
-    if (amenities.restaurant) document.getElementById('hasRestaurant').classList.remove('hidden');
-    if (amenities.wifi) document.getElementById('hasWifi').classList.remove('hidden');
+    if (amenities) {
+        if (amenities.parking) document.getElementById('hasParking').classList.remove('hidden');
+        if (amenities.hotel) document.getElementById('hasHotel').classList.remove('hidden');
+        if (amenities.freeCharge) document.getElementById('hasFreeCharge').classList.remove('hidden');
+        if (amenities.restaurant) document.getElementById('hasRestaurant').classList.remove('hidden');
+        if (amenities.wifi) document.getElementById('hasWifi').classList.remove('hidden');
+    }
 };
 
 var timeSince = function(date) {

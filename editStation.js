@@ -59,12 +59,17 @@ if (edit) {
             document.getElementById('stationLat').value = data.position.lat;
             document.getElementById('stationLng').value = data.position.lng;
             document.getElementById('stationDesc').value = data.desc;
-            document.getElementById('stationShortDesc').value = data.shortDesc;
-            document.getElementById('hasParking').checked = data.amenities.parking;
-            document.getElementById('hasHotel').checked = data.amenities.hotel;
-            document.getElementById('hasFreeCharge').checked = data.amenities.freeCharge;
-            document.getElementById('hasRestaurant').checked = data.amenities.restaurant;
-            document.getElementById('hasWifi').checked = data.amenities.wifi;
+            if (data.shortDesc) {
+                console.log(data.shortDesc, typeof data.shortDesc)
+                document.getElementById('stationShortDesc').value = data.shortDesc;
+            }
+            if (data.amenities) {
+                document.getElementById('hasParking').checked = data.amenities.parking;
+                document.getElementById('hasHotel').checked = data.amenities.hotel;
+                document.getElementById('hasFreeCharge').checked = data.amenities.freeCharge;
+                document.getElementById('hasRestaurant').checked = data.amenities.restaurant;
+                document.getElementById('hasWifi').checked = data.amenities.wifi;
+            }
             if (!data.nonstop) {
                 $('#customHours').bootstrapToggle('off');
             } else {
@@ -86,20 +91,22 @@ if (edit) {
                 document.getElementById('openSunFrom').value = data.days.sun.f;
                 document.getElementById('openSunTo').value = data.days.sun.t;
             }
-
-            document.getElementById('CHAdeMO-count').value = data.chargers['Quick Charge (CHAdeMO)'].count;
-            document.getElementById('CHAdeMO-price').value = data.chargers['Quick Charge (CHAdeMO)'].price;
-            document.getElementById('CCS-count').value = data.chargers['Quick Charge (CCS)'].count;
-            document.getElementById('CCS-price').value = data.chargers['Quick Charge (CCS)'].price;
-            document.getElementById('Supercharger-count').value = data.chargers['Tesla Supercharger'].count;
-            document.getElementById('Supercharger-price').value = data.chargers['Tesla Supercharger'].price;
-            document.getElementById('Mennekes-count').value = data.chargers['Mennekes (Type 2)'].count;
-            document.getElementById('Mennekes-price').value = data.chargers['Mennekes (Type 2)'].price;
-            document.getElementById('CEE-red-count').value = data.chargers['CEE red'].count;
-            document.getElementById('CEE-red-price').value = data.chargers['CEE red'].price;
-            document.getElementById('Schuko-count').value = data.chargers['Schuko (Type 3)'].count;
-            document.getElementById('Schuko-price').value = data.chargers['Schuko (Type 3)'].price;
-
+            try {
+                document.getElementById('CHAdeMO-count').value = data.chargers['Quick Charge (CHAdeMO)'].count;
+                document.getElementById('CHAdeMO-price').value = data.chargers['Quick Charge (CHAdeMO)'].price;
+                document.getElementById('CCS-count').value = data.chargers['Quick Charge (CCS)'].count;
+                document.getElementById('CCS-price').value = data.chargers['Quick Charge (CCS)'].price;
+                document.getElementById('Supercharger-count').value = data.chargers['Tesla Supercharger'].count;
+                document.getElementById('Supercharger-price').value = data.chargers['Tesla Supercharger'].price;
+                document.getElementById('Mennekes-count').value = data.chargers['Mennekes (Type 2)'].count;
+                document.getElementById('Mennekes-price').value = data.chargers['Mennekes (Type 2)'].price;
+                document.getElementById('CEE-red-count').value = data.chargers['CEE red'].count;
+                document.getElementById('CEE-red-price').value = data.chargers['CEE red'].price;
+                document.getElementById('Schuko-count').value = data.chargers['Schuko (Type 3)'].count;
+                document.getElementById('Schuko-price').value = data.chargers['Schuko (Type 3)'].price;
+            } catch (e) {
+                console.log('Incorrect charger data');
+            }
 			photoRef.child(query.id).getDownloadURL().then(
 				function(url) {
 					document.getElementById('photo-preview').src = url;
