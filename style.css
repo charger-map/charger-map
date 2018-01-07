@@ -56,6 +56,26 @@ textarea {
     padding: 5px;
 }
 
+/* inline checkbox that goes block on xs */
+
+.checkbox-block-xs {
+    display: block;
+}
+
+.checkbox-block-xs.checkbox-inline + .checkbox-block-xs.checkbox-inline {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    .checkbox-block-xs {
+        display: inline-block;
+    }
+
+    .checkbox-block-xs.checkbox-inline + .checkbox-block-xs.checkbox-inline {
+        margin-left: 10px;
+    }
+}
+
 /* edit chargers */
 
 .charger-group {
@@ -152,10 +172,29 @@ textarea {
     border-color: #D1332E;
 }
 
-/*.btn-danger:focus, .btn-danger:hover {*/
-    /*background-color: #317231;*/
-    /*border-color: #255625;*/
-/*}*/
+.label-success {
+    background-color: #3A833A;
+}
+
+.label-danger {
+    background-color: #D4403A;
+}
+
+.label-warning {
+    background-color: #C25A00;
+}
+
+/* muti heading 1 */
+
+.multih1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.multih1>h1,.multih1>h2,.multih1>h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 
 /* multi input group fix */
 

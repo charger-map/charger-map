@@ -21,6 +21,7 @@ stationsRef.child(query.id).on('value', function(snapshot) {
         document.getElementById('stationName').innerHTML = data.name;
         document.getElementById('stationLoc').innerHTML = data.loc;
         document.getElementById('stationDesc').innerHTML = data.desc;
+        showAmenityLabels(data.amenities);
         var state = setOpenText(data);
         if (data.nonstop) {
             document.getElementById('openMon').innerHTML = 'Nonstop';
@@ -115,6 +116,14 @@ var getChargerTime = function(status, time) {
     else return ' (' + timeSince(time) + ')';
 };
 
+var showAmenityLabels = function (amenities) {
+    if (amenities.parking) document.getElementById('hasParking').classList.remove('hidden');
+    if (amenities.hotel) document.getElementById('hasHotel').classList.remove('hidden');
+    if (amenities.freeCharge) document.getElementById('hasFreeCharge').classList.remove('hidden');
+    if (amenities.restaurant) document.getElementById('hasRestaurant').classList.remove('hidden');
+    if (amenities.wifi) document.getElementById('hasWifi').classList.remove('hidden');
+};
+
 var timeSince = function(date) {
     if (typeof date !== 'object') {
         date = new Date(date);
@@ -183,7 +192,7 @@ var setOpenText = function (station) {
 
     if (station.nonstop) {
         ele.innerHTML = 'Open nonstop';
-        ele.classList.add('text-success');
+        ele.classList.add('label-success');
         return 0;
     } else {
         var today = getTodayOpenHours(station.days);
@@ -194,16 +203,16 @@ var setOpenText = function (station) {
         if (now < f) {
             var min = f.getMinutes();
             ele.innerHTML = 'Opens at ' + f.getHours() + ':' + (min < 10 ? min + '0' : min);
-            ele.classList.add('text-warning');
+            ele.classList.add('label-warning');
             return 1;
         } else if (now < t) {
             var min = t.getMinutes();
             ele.innerHTML = 'Open until ' + t.getHours() + ':' + (min < 10 ? min + '0' : min);
-            ele.classList.add('text-success');
+            ele.classList.add('label-success');
             return 0;
         } else {
             ele.innerHTML = 'Closed';
-            ele.classList.add('text-danger');
+            ele.classList.add('label-danger');
             return 2;
         }
     }

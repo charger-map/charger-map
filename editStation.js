@@ -60,6 +60,11 @@ if (edit) {
             document.getElementById('stationLng').value = data.position.lng;
             document.getElementById('stationDesc').value = data.desc;
             document.getElementById('stationShortDesc').value = data.shortDesc;
+            document.getElementById('hasParking').checked = data.amenities.parking;
+            document.getElementById('hasHotel').checked = data.amenities.hotel;
+            document.getElementById('hasFreeCharge').checked = data.amenities.freeCharge;
+            document.getElementById('hasRestaurant').checked = data.amenities.restaurant;
+            document.getElementById('hasWifi').checked = data.amenities.wifi;
             if (!data.nonstop) {
                 $('#customHours').bootstrapToggle('off');
             } else {
@@ -202,6 +207,13 @@ var getStationObject = function () {
                 f: document.getElementById('openSunFrom').value,
                 t: document.getElementById('openSunTo').value
             }
+        },
+        amenities: {
+            parking: document.getElementById('hasParking').checked,
+            hotel: document.getElementById('hasHotel').checked,
+            freeCharge: document.getElementById('hasFreeCharge').checked,
+            restaurant: document.getElementById('hasRestaurant').checked,
+            wifi: document.getElementById('hasWifi').checked
         }
     };
 };
