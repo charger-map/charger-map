@@ -17,7 +17,7 @@
 
 footer {
     color: #067979;
-    background-color: #e7e7e7;
+    background-color: #F5F5F5;
     border: 1px solid #067979;
     border-width: 1px 0 0 0;
     position: absolute;
@@ -116,7 +116,7 @@ textarea {
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-    background-color: #e6e6e6;
+    background-color: #F5F5F5;
     color: #067979;
 }
 
@@ -127,13 +127,35 @@ textarea {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
-    color: #e7e7e7;
+    color: #F5F5F5;
     background-color: #067979;
 }
 
 .greenborder {
     border-color: #067979;
 }
+
+/* adjust bootstrap colors for contrast */
+
+.btn-success {
+    background-color: #3A833A;
+    border-color: #3B873B;
+}
+
+.btn-success:focus, .btn-success:hover {
+    background-color: #317231;
+    border-color: #255625;
+}
+
+.btn-danger {
+    background-color: #D4403A;
+    border-color: #D1332E;
+}
+
+/*.btn-danger:focus, .btn-danger:hover {*/
+    /*background-color: #317231;*/
+    /*border-color: #255625;*/
+/*}*/
 
 /* multi input group fix */
 
