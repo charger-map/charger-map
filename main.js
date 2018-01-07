@@ -42,4 +42,4 @@ var logout = function () {
 };
 
 // init footer (on all pages)
-document.getElementsByTagName('footer')[0].innerHTML='Copyright &copy; Charger Map 2017';
+document.getElementsByTagName('footer')[0].innerHTML='Copyright &copy; Charger Map 2017-2018';
