@@ -23,7 +23,13 @@ stationsRef.child(query.id).on('value', function(snapshot) {
         document.getElementById('stationDesc').innerHTML = data.desc;
         setOpenText(data);
         if (data.nonstop) {
-            document.getElementById('openHoursTable').style.display = 'none';
+            document.getElementById('openMon').innerHTML = 'Nonstop';
+            document.getElementById('openTue').innerHTML = 'Nonstop';
+            document.getElementById('openWed').innerHTML = 'Nonstop';
+            document.getElementById('openThu').innerHTML = 'Nonstop';
+            document.getElementById('openFri').innerHTML = 'Nonstop';
+            document.getElementById('openSat').innerHTML = 'Nonstop';
+            document.getElementById('openSun').innerHTML = 'Nonstop';
         } else {
             document.getElementById('openMon').innerHTML = data.days.mon.f + ' - ' + data.days.mon.t;
             document.getElementById('openTue').innerHTML = data.days.tue.f + ' - ' + data.days.tue.t;
